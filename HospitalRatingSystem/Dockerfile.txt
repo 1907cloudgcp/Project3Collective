@@ -1,0 +1,37 @@
+FROM tomcat:8.5.46-jdk8-openjdk as build-env
+ # bad way of doing env variables
+# ENV DATABASE_NAME=""
+ENV safenurturedbusername=${safenurturedbusername}
+ENV safenurturedbpassword=${safenurturedbpassword}
+ENV safenurturedburl=${safenurturedburl}
+# do later because I know we need more env variables
+COPY . .
+#RUN mvn install
+#RUN mvn package
+#done in previous step
+#We need another command
+RUN apt-get update
+RUN apt-get install maven -y
+#RUN ls
+#RUN cd SafeNurtureSpring
+WORKDIR SafeNurtureSpring
+#WORKDIR SafeNurtureMaven
+RUN mvn install
+RUN mvn package
+#RUN mvn 
+#RUN cd ..
+RUN ls target
+RUN cp target/SafeNurtureProject-0.0.1-SNAPSHOT.war $CATALINA_HOME/webapps/
+WORKDIR ..
+#RUN ls
+#RUN ls webapps
+#the follwoing commands are commented cause they are gotten from the interent and the internet might be run
+#it specifies the expose command and the run command
+#EXPOSE 8080
+EXPOSE 80
+CMD ["catalina.sh", "run"]
+
+# change later after pom.xml is added
+# CMD java -jar target/[artifactId]-[version].jar
+# this should probably work
+# - it didn't work because we're not using spring boot :(
