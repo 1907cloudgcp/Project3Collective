@@ -6,8 +6,11 @@
 #rm -r node_modules
 #gsutil cp -r dist gs://www.alexandernkingsburyprojects.com/Pet-insurance-Angular
 
+# move into the spring code folder
 cd RevaturePetInsurance/
+# compiles the code
 mvn package
+# move back out of the folder
 cd ../
 
 #go into the folder
