@@ -2,7 +2,9 @@
 
 ## Structure
 The Support Force front end and back end portions were separated into two different repositories. 
+
 The **SupportForce** folder here contains the files needed to build the **front end** application of the project using CircleCI. 
+
 The **SupportForceBE** folder here contains the files needed to build the **back end** application of the project using CircleCI.
 
 ## Contents of SupportForce Folder
