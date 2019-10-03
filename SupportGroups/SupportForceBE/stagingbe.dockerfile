@@ -10,7 +10,7 @@ ENV DB_NAME="postgres"
 # ENV DB_SCHEMA=""
 ENV DB_URL="jdbc:postgresql://35.236.247.30:5432/postgres"
 ENV DB_USERNAME="postgres"
-ENV DB_PASSWORD="OrCbp5r8HxIxcPkK"
+ENV DB_PASSWORD=""
 
 ## set up working directory
 COPY . /app
