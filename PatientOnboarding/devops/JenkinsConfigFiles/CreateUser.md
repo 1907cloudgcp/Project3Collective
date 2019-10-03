@@ -19,11 +19,11 @@
 
 **3**. Click the **Manage Users** link at the bottom of the page
 
-![Manage Users](images/ManageUsers.JPG)
+![Manage Users](images/ManageUsers.jpg)
 
 **4**. Select the **Create User** link on the menu on the left
 
-![Create User](images/CreateUser.JPG)
+![Create User](images/CreateUser.jpg)
 
 **5**. Input User info and create our new User
 
