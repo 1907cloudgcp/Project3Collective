@@ -1,19 +1,28 @@
+#basic settings for the deployment
 apiVersion: apps/v1beta1
 kind: Deployment
 metadata:
+  #change this to the name of your project for more accurate metadata
   name: petinsurance
 spec:
+  #only one copy
   revisionHistoryLimit: 1
   replicas: 1
   template:
     metadata:
       labels:
+        #change this app label to reflect the name of your service
         app: petinsurance
     spec:
       containers:
+        #change to the name of your service
       - name: petinsurance
+        #this is the name of the image to be pulled for use in this deployment
+        # it will need to be changed to the image name you set in the deploy.sh file
         image: gcr.io/projectthreeie/petinsurance:v1.0
         env:
+          #these are the environment variables for connecting to the sql database.
+          #This first one references a kubernetes secret that no longer exists
         - name: PetInsurancePassword
           valueFrom:
             secretKeyRef:
@@ -23,29 +32,41 @@ spec:
           value: "jdbc:postgresql://34.70.42.108:5432/postgres"
         - name: PetInsuranceUsername
           value: "postgres"
+        #I'm not sure why but this line is absolutely crucial. do not touch it
         imagePullPolicy: Always
         ports:
+          #This is the port within the container that the application will be run on
         - containerPort: 8080
         readinessProbe:
           httpGet:
+            #This should be the path to the health check on the website to ensure that kuberenetes is able to recognize running instances vs broken ones and autoscale
             path: /RevaturePetInsurance-0.0.1-SNAPSHOT/log/health.app
+            # and this should be the port it is on
             port: 8080
         resources:
+          #these define the limits to our resources. These can be increased if you need more power but shouldn't be necessary
           limits:
             cpu: 70m
           requests:
             cpu: 70m
 
 ---
+# below is defined the load balancer which will handle this service cluster. Most of this can be left alone except where noted
 apiVersion: v1
 kind: Service
 metadata:
+  #this should reflect the name of your service
   name: petinsurance
 spec:
   type: LoadBalancer
   ports:
+    #These port mappings are important and probably won't have to be changed unless you're hosting on a different port
+    #This is the protocol you are hosting
   - name: http
+    #This is the external port that the service will be accesible on
     port: 80
+    #this is the internal port that the service is hosted on
     targetPort: 8080
   selector:
+  #This is your application name again
     app: petinsurance
