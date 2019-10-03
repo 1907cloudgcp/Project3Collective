@@ -23,7 +23,7 @@ The .json file contains pertinent access information. The variables' names are s
 
 ## Contents of SupportForceBE Folder
 
-The stagingbe.dockerfile is the Dockerfile used for building the back end container.
+The stagingbe.dockerfile is the Dockerfile used for building the back end container. The SQL database password in this file has been redacted for this repository.
 
 The .circleci folder holds the necessary files for a CircleCI build. 
 
