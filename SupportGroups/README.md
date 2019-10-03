@@ -18,7 +18,7 @@ The **SupportForce** folder here contains the files needed to build the **front 
 
 The **SupportForceBE** folder here contains the files needed to build the **back end** application of the project using CircleCI.
 
-## Contents of SupportForce Folder
+### Contents of SupportForce Folder
 
 The stagingfe.dockerfile is the Dockerfile used for building the front end container.
 
@@ -32,7 +32,7 @@ The .environment files contain environment variables of the backend URL, so this
 
 The .json file contains pertinent access information. The variables' names are shown, but values have been redacted in this repository.
 
-## Contents of SupportForceBE Folder
+### Contents of SupportForceBE Folder
 
 The stagingbe.dockerfile is the Dockerfile used for building the back end container. The SQL database password in this file has been redacted for this repository.
 
