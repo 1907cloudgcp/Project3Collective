@@ -1,6 +1,17 @@
 # Support Groups
 
-## Structure
+## Project Infrastructure
+
+The front end Angular application was built and its artifacts would be uploaded into a Google Cloud Storage bucket. This bucket had the associated domain name "www.support-force.org" which was publicly accessible. Every time the front end Github repository was pushed to, CircleCI would create a new build and the website would reflect any changes made to it.
+
+The back end Spring application was built and the Tomcat server was deployed to a Kubernetes cluster with g1-small instances located in us-east. This cluster had a load balancer with an IP address that served as the connection point for the front end application.
+
+Another GCP resource used was a PostgreSQL database located in us-east with 1 CPU, 3.75 GB memory, and 10 GB SSD storage.
+
+The daily cost for our project with the resources we used was between $4.50 to $5.00.
+
+## Repository Structure
+
 The Support Force front end and back end portions were separated into two different repositories. 
 
 The **SupportForce** folder here contains the files needed to build the **front end** application of the project using CircleCI. 
