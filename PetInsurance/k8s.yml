@@ -1,0 +1,57 @@
+apiVersion: apps/v1beta1
+kind: Deployment
+metadata:
+  name: petinsurance
+spec:
+  revisionHistoryLimit: 1
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: petinsurance
+    spec:
+      containers:
+      - name: petinsurance
+        image: gcr.io/gcpdemosbmongeon/petinsurance:v1.0
+        env:
+# This will need to be changed to reflect the Database credentials we use.
+        - name: JDBC_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: jdbc-password
+              key: key
+        - name: DATABASE_NAME
+          value: "postgres"
+        - name: JDBC_SCHEMA
+          value: ""
+        - name: JDBC_URL
+          value: "34.70.42.108"
+        - name: JDBC_USERNAME
+          value: "postgres"
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 8080
+        readinessProbe:
+          httpGet:
+# This will need to be changed to reflect the GCP project we are using.
+            path: /actuator/health
+            port: 8080
+        resources:
+          limits:
+            cpu: 70m
+          requests:
+            cpu: 70m
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: petinsurance
+spec:
+  type: LoadBalancer
+  ports:
+  - name: http
+    port: 80
+    targetPort: 8080
+  selector:
+    app: petinsurance
