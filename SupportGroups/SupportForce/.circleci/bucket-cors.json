@@ -1,0 +1,16 @@
+[
+    {
+      "origin": ["*"],
+      "method": ["*"],
+      "Access-Control-Allow-Origin": ["*"],
+      "responseHeader": [
+	      "Access-Control-Allow-Origin", 
+	      "Access-Control-Allow-Credentials", 
+	      "Access-Control-Expose-Headers", 
+	      "Access-Control-Max-Age", 
+	      "Access-Control-Allow-Methods", 
+	      "Access-Control-Allow-Headers"
+    	],
+      "maxAgeSeconds": 3600
+    }
+]
