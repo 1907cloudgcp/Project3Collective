@@ -1,0 +1,19 @@
+.footer {
+    /* position: absolute; */
+    bottom: 0;
+    width: 100%;
+    background-color: #d1d5dab0!important;
+    color: white;
+    text-align: center;
+    margin: 0;
+    height: 100px;
+}
+
+.nav-item{
+    border-right: 1px rgba(0,0,0,.5) solid;
+}
+
+.navbar {
+    padding-right: 20px;
+    float: right;
+}

@@ -1,0 +1,30 @@
+.bio {
+    text-align: justify;
+    font-size: 17px;
+    background-color: hsla(0,0%,100%,.87);
+    padding: 20px 20px;
+    box-shadow: 0 0 10px -3px #000;
+    color: #000;
+    font-weight: 200;
+    margin-top: 150px;
+}
+
+.image {
+    width: 35%;
+    height: 60%;
+    margin-top: 50px;
+    position: absolute;
+}
+
+.modal-dialog {
+    max-width: 940px;
+    margin: 1.75rem auto;
+}
+
+#maindiv {
+    height: 100vh;
+    background-image: url(https://wallpaperplay.com/walls/full/d/8/b/329997.jpg);
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+

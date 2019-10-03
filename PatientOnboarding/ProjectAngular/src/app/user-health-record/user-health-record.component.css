@@ -1,0 +1,23 @@
+.modal-dialog {
+    max-width: 940px;
+    margin: 1.75rem auto;
+}
+
+.btn-outline-success {
+    color: #373f39;
+    border-color: #3d453e;
+    margin: 0px 16px;
+}
+
+.btn-outline-success:hover {
+    color: #fff !important;
+    background-color: #a6b7a3;
+}
+
+.btn-outline-success.focus, .btn-outline-success:focus {
+    box-shadow: 0 0 0 0.2rem rgba(82, 108, 88, 0.5);
+}
+
+.btn-outline-success:not(:disabled):not(.disabled).active:focus, .btn-outline-success:not(:disabled):not(.disabled):active:focus, .show>.btn-outline-success.dropdown-toggle:focus {
+    box-shadow: 0 0 0 0.2rem rgba(82, 108, 88, 0.5);
+}

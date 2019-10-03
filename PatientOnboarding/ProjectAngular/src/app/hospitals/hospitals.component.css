@@ -1,0 +1,35 @@
+.card {
+    margin: 30px;
+}
+
+.card-img-top {
+    height: 165px;
+    margin: 5px;
+}
+
+#maindiv {
+    height: 100%;
+    background-image: url(https://wallpaperplay.com/walls/full/d/8/b/329997.jpg);
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+.btn-success {
+    color: #373f39;
+    border-color: #3d453e;
+    width: 100px;
+    background-color: #d5e1d3;
+}
+
+.btn-success:hover {
+    color: #fff !important;
+    background-color: #a6b7a3;
+}
+
+.btn-success.focus, .btn-success:focus {
+    box-shadow: 0 0 0 0.2rem rgba(82, 108, 88, 0.5);
+}
+
+.btn-success:not(:disabled):not(.disabled).active:focus, .btn-success:not(:disabled):not(.disabled):active:focus, .show>.btn-success.dropdown-toggle:focus {
+    box-shadow: 0 0 0 0.2rem rgba(82, 108, 88, 0.5);
+}

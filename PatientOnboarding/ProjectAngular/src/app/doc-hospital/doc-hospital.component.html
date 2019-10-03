@@ -1,0 +1,34 @@
+<div id="maindiv">
+    <app-navbar></app-navbar>
+    <div class="container">
+        <div class="row">
+            <!-- <div *ngIf="assets/currentHospital.id.jpeg; else elseTamp"> -->
+                <!-- <img class="image" src="assets/{{user.hospital.id}}.jpeg"> -->
+                <img  class="image" src="assets/{{user.hospital.id}}.jpeg"
+      onError="this.src='assets/1.jpeg';" />
+            <!-- </div>
+            <ng-template #elseTamp>
+                <img class="image" src="assets/3.jpeg">
+            </ng-template> -->
+            <div class="col-4"></div>
+            <div class="col-8 bio">
+                <h4 class="card-title">{{user.hospital.name}}</h4>
+                <p class="card-text"><b>address: </b>{{user.hospital.address}} {{user.hospital.state}}
+                    {{user.hospital.zip}}</p>
+                <h5>About Us</h5>
+                <p>
+                    {{user.hospital.name}} has been serving the South Florida community since 1994
+                    and is a quality oriented private Outpatient Rehabilitation facility with offices in Miami, Florida.
+                    <br>
+                    We are committed to help each one of our patients achieve their highest functional potential, by
+                    providing the finest physical, occupational, and speech therapy available.
+                    <br>
+                    Our facility is well equipped and our team of professionals is experienced, friendly, knowledgeable and
+                    dedicated to meet your needs and exceed your expectations.
+                </p>
+    
+            </div>
+        </div>
+    </div>
+    <!-- <app-footer></app-footer> -->
+    </div>

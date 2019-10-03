@@ -1,0 +1,155 @@
+<div id="maindiv">
+    <app-navbar></app-navbar>
+    <div class="container">
+        <div class="row">
+            <!-- <img class="image" src="assets/mask.webp"> -->
+            <!-- <img class="image" [src]="img"> -->
+            <img  class="image" src="assets/user{{curPatient.id}}.jpeg"
+      onError="this.src='assets/user8.jpeg';" />
+            <div class="col-5"></div>
+            <!-- <i class="material-icons" style="font-size: 450px">person_outline</i> -->
+            <div class="col-5 bio">
+                <h5>{{curPatient.lastName}} {{curPatient.firstName}}</h5>
+                <p><b>username: </b>{{curPatient.username}}</p>
+                <p><b>address: </b>{{curPatient.address}}</p>
+                <p><b>state: </b>{{curPatient.state}}</p>
+                <p><b>zip: </b>{{curPatient.zip}}</p>
+                <p><b>contact number: </b>{{curPatient.number}}</p>
+                <p><b>contact email: </b>{{curPatient.email}}</p>
+                <!-- Button trigger modal -->
+                <button type="button" class="btn btn-outline-success" data-toggle="modal" data-target="#userModal">
+                    Health Record 
+                </button>
+                <!-- Modal -->
+                <div class="modal fade" id="userModal" tabindex="-1" role="dialog" aria-labelledby="userModalLabel"
+                    aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="userModalLabel">Health Record {{curPatient.lastName}} {{curPatient.firstName}}</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <div class="container">
+                                    <div class="row">
+                                        <div class="col-4">
+                                            <p><b>High Blood Pressure</b></p>
+                                            <p *ngIf="healthRecord.bloodpressure"><i>Current record: <b>yes</b></i></p>
+                                            <p *ngIf="!healthRecord.bloodpressure"><i>Current record: <b>no</b></i></p>
+                                            <hr>
+                                            <p><b>Heart Disease</b></p>
+                                            <p *ngIf="healthRecord.heartDisease"><i>Current record: <b>yes</b></i></p>
+                                            <p *ngIf="!healthRecord.heartDisease"><i>Current record: <b>no</b></i></p>
+                                            <hr>
+                                            <p><b>Stroke</b></p>
+                                            <p *ngIf="healthRecord.stroke"><i>Current record: <b>yes</b></i></p>
+                                            <p *ngIf="!healthRecord.stroke"><i>Current record: <b>no</b></i></p>
+                                            <hr>
+                                            <p><b>Diabetes</b></p>
+                                            <p *ngIf="healthRecord.diabetes"><i>Current record: <b>yes</b></i></p>
+                                            <p *ngIf="!healthRecord.diabetes"><i>Current record: <b>no</b></i></p>
+                                            <hr>
+                                            <p><b>Digestive Problems</b></p>
+                                            <p *ngIf="healthRecord.digestive"><i>Current record: <b>yes</b></i></p>
+                                            <p *ngIf="!healthRecord.digestive"><i>Current record: <b>no</b></i></p>
+                                            <hr>
+                                            <p><b>Lung Problems</b></p>
+                                            <p *ngIf="healthRecord.lung"><i>Current record: <b>yes</b></i></p>
+                                            <p *ngIf="!healthRecord.lung"><i>Current record: <b>no</b></i></p>
+                                            <hr>
+                                            <p><b>Visual Impairment</b></p>
+                                            <p *ngIf="healthRecord.visual"><i>Current record: <b>yes</b></i></p>
+                                            <p *ngIf="!healthRecord.visual"><i>Current record: <b>no</b></i></p>
+                                            <hr>
+                                            <p><b>Back or Joint Problems (arthritis)</b></p>
+                                            <p *ngIf="healthRecord.joint"><i>Current record: <b>yes</b></i></p>
+                                            <p *ngIf="!healthRecord.joint"><i>Current record: <b>no</b></i></p>
+                                            <hr>
+                                        </div>
+                                        <div class="col-4">
+                                            <p><b>Depression or Severe Anxiety</b></p>
+                                            <p *ngIf="healthRecord.depression"><i>Current record: <b>yes</b></i></p>
+                                            <p *ngIf="!healthRecord.depression"><i>Current record: <b>no</b></i></p>
+                                            <hr>
+                                        
+                                            <p><b>Cancer</b></p>
+                                            <p *ngIf="healthRecord.cancer"><i>Current record: <b>yes</b></i></p>
+                                            <p *ngIf="!healthRecord.cancer"><i>Current record: <b>no</b></i></p>
+                                            <hr>
+                                            <p><b>Liver Problems (hepatitis/jaundice)</b></p>
+                                            <p *ngIf="healthRecord.liver"><i>Current record: <b>yes</b></i></p>
+                                            <p *ngIf="!healthRecord.liver"><i>Current record: <b>no</b></i></p>
+                                            <hr>
+                                            <p><b>Thyroid Problems</b></p>
+                                            <p *ngIf="healthRecord.thyroid"><i>Current record: <b>yes</b></i></p>
+                                            <p *ngIf="!healthRecord.thyroid"><i>Current record: <b>no</b></i></p>
+                                            <hr>
+                                            <p><b>Hearing Problems</b></p>
+                                            <p *ngIf="healthRecord.hearing"><i>Current record: <b>yes</b></i></p>
+                                            <p *ngIf="!healthRecord.hearing"><i>Current record: <b>no</b></i></p>
+                                            <hr>
+                                            <p><b>Have you ever done drugs</b></p>
+                                            <p *ngIf="healthRecord.drugs"><i>Current record: <b>yes</b></i></p>
+                                            <p *ngIf="!healthRecord.drugs"><i>Current record: <b>no</b></i></p>
+                                            <hr>
+                                            <p><b>Are you Sexually Active?</b></p>
+                                            <p *ngIf="healthRecord.sexually"><i>Current record: <b>yes</b></i></p>
+                                            <p *ngIf="!healthRecord.sexually"><i>Current record: <b>no</b></i></p>
+                                            <hr>
+                                            <p><b>Do you exercise regularly</b></p>
+                                            <p *ngIf="healthRecord.exercise"><i>Current record: <b>yes</b></i></p>
+                                            <p *ngIf="!healthRecord.exercise"><i>Current record: <b>no</b></i></p>
+                                            <hr>
+                                        </div>
+                                        <div class="col-4">
+                                            <p><b>Do you have a living will?</b></p>
+                                            <p *ngIf="healthRecord.livingWill"><i>Current record: <b>yes</b></i></p>
+                                            <p *ngIf="!healthRecord.livingWill"><i>Current record: <b>no</b></i></p>
+                                            <hr>
+                                     
+                                                <p><b>Do you smoke?</b></p>
+                                                <p *ngIf="healthRecord.smoke"><i>Current record: <b>yes</b></i></p>
+                                                <p *ngIf="!healthRecord.smoke"><i>Current record: <b>no</b></i></p>
+                                                <p *ngIf="healthRecord.smokefreq.frequency === 'empty'"><i>Frequency: <b>empty</b></i></p>
+                                                <p *ngIf="healthRecord.smokefreq.frequency === 'Never'"><i>Frequency: <b>never</b></i></p>
+                                                <p *ngIf="healthRecord.smokefreq.frequency === 'Sometimes'"><i>Frequency: <b>sometimes</b></i></p>
+                                                <p *ngIf="healthRecord.smokefreq.frequency === 'Often'"><i>Frequency: <b>often</b></i></p>
+                                                <hr>
+                                                <p><b>Do you use chewing tobacco or snuff?</b></p>
+                                                <p *ngIf="healthRecord.tobacco"><i>Current record: <b>yes</b></i></p>
+                                                <p *ngIf="!healthRecord.tobacco"><i>Current record: <b>no</b></i></p>
+                                                <p *ngIf="healthRecord.tobaccofreq.frequency === 'empty'"><i>Frequency: <b>empty</b></i></p>
+                                                <p *ngIf="healthRecord.tobaccofreq.frequency === 'Never'"><i>Frequency: <b>never</b></i></p>
+                                                <p *ngIf="healthRecord.tobaccofreq.frequency === 'Sometimes'"><i>Frequency: <b>sometimes</b></i></p>
+                                                <p *ngIf="healthRecord.tobaccofreq.frequency === 'Often'"><i>Frequency: <b>often</b></i></p>
+                                                <hr>
+                                                <p><b>Do you drink alcohol?</b></p>
+                                                <p *ngIf="healthRecord.alcohol"><i>Current record: <b>yes</b></i></p>
+                                                <p *ngIf="!healthRecord.alcohol"><i>Current record: <b>no</b></i></p>
+                                                <p *ngIf="healthRecord.alcoholfreq.frequency === 'empty'"><i>Frequency: <b>empty</b></i></p>
+                                                <p *ngIf="healthRecord.alcoholfreq.frequency === 'Never'"><i>Frequency: <b>never</b></i></p>
+                                                <p *ngIf="healthRecord.alcoholfreq.frequency === 'Sometimes'"><i>Frequency: <b>sometimes</b></i></p>
+                                                <p *ngIf="healthRecord.alcoholfreq.frequency === 'Often'"><i>Frequency: <b>often</b></i></p>
+                                                <hr>
+                                                <p><b>Do you drink caffeinated beverages?</b></p>
+                                                <p *ngIf="healthRecord.caffeinated"><i>Current record: <b>yes</b></i></p>
+                                                <p *ngIf="!healthRecord.caffeinated"><i>Current record: <b>no</b></i></p>
+                                                <p *ngIf="healthRecord.caffeinatedfreq.frequency === 'empty'"><i>Frequency: <b>empty</b></i></p>
+                                                <p *ngIf="healthRecord.caffeinatedfreq.frequency === 'Never'"><i>Frequency: <b>never</b></i></p>
+                                                <p *ngIf="healthRecord.caffeinatedfreq.frequency === 'Sometimes'"><i>Frequency: <b>sometimes</b></i></p>
+                                                <p *ngIf="healthRecord.caffeinatedfreq.frequency === 'Often'"><i>Frequency: <b>often</b></i></p>
+                                                <hr>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- <app-footer></app-footer> -->
+</div>

@@ -1,0 +1,46 @@
+#maindiv {
+    height: 100vh;
+    background-image: url("https://images.pexels.com/photos/1919236/pexels-photo-1919236.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940");
+    background-size: cover;
+}
+
+.bg-light {
+    height: 100px;
+    background-color: #f8f9fab0!important;
+}
+
+.btn-outline-success {
+    color: #373f39;
+    border-color: #3d453e;
+    margin: 0px 16px;
+    width: 100px;
+}
+
+.btn-outline-success:hover {
+    color: #fff !important;
+    background-color: #a6b7a3;
+}
+
+.btn-outline-success.focus, .btn-outline-success:focus {
+    box-shadow: 0 0 0 0.2rem rgba(82, 108, 88, 0.5);
+}
+
+.btn-outline-success:not(:disabled):not(.disabled).active:focus, .btn-outline-success:not(:disabled):not(.disabled):active:focus, .show>.btn-outline-success.dropdown-toggle:focus {
+    box-shadow: 0 0 0 0.2rem rgba(82, 108, 88, 0.5);
+}
+
+.welcome {
+    float: bottom;
+    margin-top: 43%;
+    font-size: 40px;
+    text-align: justify;
+    background-color:  #f8f9fab0;
+    padding: 10px 20px;
+    box-shadow: 0 0 10px -3px #000;
+    color: #000;
+    font-weight: 200;
+}
+
+.navbar-brand {
+    font-size: 30px;
+}

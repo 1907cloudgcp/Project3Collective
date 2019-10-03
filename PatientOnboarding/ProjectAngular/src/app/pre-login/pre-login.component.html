@@ -1,0 +1,115 @@
+<div id="maindiv">
+  <nav class="navbar navbar-light bg-light">
+    <a class="navbar-brand" style="margin-left: 20px"><i class="material-icons" style="font-size: 55px">
+        supervised_user_circle</i>
+        Onboard Medical</a>
+    <div>
+      <!-- Button trigger modal -->
+      <button type="button" class="btn btn-outline-success" data-toggle="modal" data-target="#loginModal">
+          Login
+        </button>
+      <!-- Button trigger modal -->
+      <button type="button" class="btn btn-outline-success" data-toggle="modal" data-target="#registerModal" style="margin-right: 25px">
+          Register
+        </button>
+    </div>
+
+      <!-- Modal -->
+      <div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="loginModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="loginModalLabel">Login</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <form [formGroup]="userLogin" (ngSubmit)="login()">
+                <div class="form-group">
+                  <label for="exampleFormControlInput1">Username</label>
+                  <input type="text" class="form-control" formControlName="username">
+                </div>
+                <div class="form-group">
+                  <label for="exampleFormControlInput1">Password</label>
+                  <input type="password" class="form-control" formControlName="password">
+                </div>
+                <div class="form-group">
+                    <label for="exampleFormControlSelect1">Choose your role</label>
+                    <select class="form-control" id="exampleFormControlSelect1"
+                    formControlName="role">
+                        <option>admin</option>
+                        <option>patient</option>
+                        <option>doctor</option>
+                    </select>
+                </div>
+                <div class="modal-footer">
+                  <button type="submit" class="btn btn-outline-success">Login</button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Modal -->
+      <div class="modal fade" id="registerModal" tabindex="-1" role="dialog" aria-labelledby="registerModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="registerModalLabel">Register</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <form [formGroup]="userSignUp" (ngSubmit)="signup()" method="post" action="/insertuser.app">
+                <div class="form-group">
+                  <label for="exampleFormControlInput1">First Name</label>
+                  <input type="text" class="form-control" formControlName="firstname">
+                </div>
+                <div class="form-group">
+                  <label for="exampleFormControlInput1">Middle Initial</label>
+                  <input type="text" class="form-control" formControlName="middleinit">
+                </div>
+                <div class="form-group">
+                  <label for="exampleFormControlInput1">Last Name</label>
+                  <input type="text" class="form-control" formControlName="lastname">
+                </div>
+                <div class="form-group">
+                  <label for="exampleFormControlInput1">Email</label>
+                  <input type="email" class="form-control" formControlName="email">
+                </div>
+                <!-- <div class="form-group">
+                  <label for="exampleFormControlInput1">Date of birth</label>
+                  <input type="date" class="form-control">
+                </div> -->
+                <div class="form-group">
+                  <label for="exampleFormControlInput1">Username</label>
+                  <input type="text" class="form-control" formControlName="username">
+                </div>
+                <div class="form-group">
+                  <label for="exampleFormControlInput1">Password</label>
+                  <input type="password" class="form-control" formControlName="password">
+                </div>
+                <div class="form-group">
+                  <label for="exampleFormControlInput1">Confirm password</label>
+                  <input type="password" class="form-control" formControlName="repassword">
+                </div>
+                <div class="modal-footer">
+                  <button type="submit" class="btn btn-outline-success" >Register</button>
+                </div>
+              </form> 
+            </div>
+          </div>
+        </div>
+      </div>
+  </nav>
+  <div class="container">
+    <div class="row">
+      <p class="welcome">Welcome to Medical Service You Can Trust</p>
+    </div>
+  </div>
+</div>

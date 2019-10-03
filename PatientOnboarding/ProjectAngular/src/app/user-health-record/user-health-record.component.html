@@ -1,0 +1,507 @@
+<!-- Button trigger modal -->
+<button type="button" class="btn btn-outline-success" data-toggle="modal" data-target="#userHealthModal">
+    Health Record
+</button>
+<!-- Modal -->
+<div class="modal fade" id="userHealthModal" tabindex="-1" role="dialog" aria-labelledby="userHealthModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="userHealthModalLabel">Health Record</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form [formGroup]="userHealthRecord" (ngSubmit)="save()">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-4">
+                                <fieldset class="form-group">
+                                    <div class="row">
+                                        <legend class="col-form-label pt-0"><b>High Blood Pressure</b></legend>
+                                        <div class="col-sm-10">
+                                            <div class="form-check form-check-inline" >
+                                                <input class="form-check-input" type="radio"
+                                                    id="inlineRadio1" value="true" formControlName="bloodpressure">
+                                                <label class="form-check-label" for="inlineRadio1">Yes</label>
+                                            </div>
+                                            <div class="form-check form-check-inline" >
+                                                <input class="form-check-input" type="radio"
+                                                    id="inlineRadio2" value="false" formControlName="bloodpressure">
+                                                <label class="form-check-label" for="inlineRadio2">No</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </fieldset>
+                                <p *ngIf="healthRecord.bloodpressure"><i>Your current record: <b>yes</b></i></p>
+                                <p *ngIf="!healthRecord.bloodpressure"><i>Your current record: <b>no</b></i></p>
+                                <hr>
+                                <fieldset class="form-group">
+                                    <div class="row">
+                                        <legend class="col-form-label pt-0"><b>Heart Disease</b></legend>
+                                        <div class="col-sm-10">
+                                            <div class="form-check form-check-inline">
+                                                <input class="form-check-input" type="radio" formControlName="heartDisease"
+                                                    id="inlineRadio3" value="true">
+                                                <label class="form-check-label" for="inlineRadio3">Yes</label>
+                                            </div>
+                                            <div class="form-check form-check-inline">
+                                                <input class="form-check-input" type="radio" formControlName="heartDisease"
+                                                    id="inlineRadio4" value="false">
+                                                <label class="form-check-label" for="inlineRadio4">No</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </fieldset>
+                                <p *ngIf="healthRecord.heartDisease"><i>Your current record: <b>yes</b></i></p>
+                                <p *ngIf="!healthRecord.heartDisease"><i>Your current record: <b>no</b></i></p>
+                                <hr>
+                                <fieldset class="form-group">
+                                    <div class="row">
+                                        <legend class="col-form-label pt-0"><b>Stroke</b></legend>
+                                        <div class="col-sm-10">
+                                            <div class="form-check form-check-inline">
+                                                <input class="form-check-input" type="radio" formControlName="stroke"
+                                                    id="inlineRadio1" value="true">
+                                                <label class="form-check-label" for="inlineRadio1">Yes</label>
+                                            </div>
+                                            <div class="form-check form-check-inline">
+                                                <input class="form-check-input" type="radio" formControlName="stroke"
+                                                    id="inlineRadio2" value="false">
+                                                <label class="form-check-label" for="inlineRadio2">No</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </fieldset>
+                                <p *ngIf="healthRecord.stroke"><i>Your current record: <b>yes</b></i></p>
+                                <p *ngIf="!healthRecord.stroke"><i>Your current record: <b>no</b></i></p>
+                                <hr>
+                                <fieldset class="form-group">
+                                    <div class="row">
+                                        <legend class="col-form-label pt-0"><b>Diabetes</b></legend>
+                                        <div class="col-sm-10">
+                                            <div class="form-check form-check-inline">
+                                                <input class="form-check-input" type="radio" formControlName="diabetes"
+                                                    id="inlineRadio1" value="true">
+                                                <label class="form-check-label" for="inlineRadio1">Yes</label>
+                                            </div>
+                                            <div class="form-check form-check-inline">
+                                                <input class="form-check-input" type="radio" formControlName="diabetes"
+                                                    id="inlineRadio2" value="false">
+                                                <label class="form-check-label" for="inlineRadio2">No</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </fieldset>
+                                <p *ngIf="healthRecord.diabetes"><i>Your current record: <b>yes</b></i></p>
+                                <p *ngIf="!healthRecord.diabetes"><i>Your current record: <b>no</b></i></p>
+                                <hr>
+                                <fieldset class="form-group">
+                                    <div class="row">
+                                        <legend class="col-form-label pt-0"><b>Digestive Problems</b></legend>
+                                        <div class="col-sm-10">
+                                            <div class="form-check form-check-inline">
+                                                <input class="form-check-input" type="radio" formControlName="digestive"
+                                                    id="inlineRadio1" value="true">
+                                                <label class="form-check-label" for="inlineRadio1">Yes</label>
+                                            </div>
+                                            <div class="form-check form-check-inline">
+                                                <input class="form-check-input" type="radio" formControlName="digestive"
+                                                    id="inlineRadio2" value="false">
+                                                <label class="form-check-label" for="inlineRadio2">No</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </fieldset>
+                                <p *ngIf="healthRecord.digestive"><i>Your current record: <b>yes</b></i></p>
+                                <p *ngIf="!healthRecord.digestive"><i>Your current record: <b>no</b></i></p>
+                                <hr>
+                                <fieldset class="form-group">
+                                    <div class="row">
+                                        <legend class="col-form-label pt-0"><b>Lung Problems</b></legend>
+                                        <div class="col-sm-10">
+                                            <div class="form-check form-check-inline">
+                                                <input class="form-check-input" type="radio" formControlName="lung"
+                                                    id="inlineRadio1" value="true">
+                                                <label class="form-check-label" for="inlineRadio1">Yes</label>
+                                            </div>
+                                            <div class="form-check form-check-inline">
+                                                <input class="form-check-input" type="radio" formControlName="lung"
+                                                    id="inlineRadio2" value="false">
+                                                <label class="form-check-label" for="inlineRadio2">No</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </fieldset>
+                                <p *ngIf="healthRecord.lung"><i>Your current record: <b>yes</b></i></p>
+                                <p *ngIf="!healthRecord.lung"><i>Your current record: <b>no</b></i></p>
+                                <hr>
+                                <fieldset class="form-group">
+                                    <div class="row">
+                                        <legend class="col-form-label pt-0"><b>Visual Impairment</b></legend>
+                                        <div class="col-sm-10">
+                                            <div class="form-check form-check-inline">
+                                                <input class="form-check-input" type="radio" formControlName="visual"
+                                                    id="inlineRadio1" value="true">
+                                                <label class="form-check-label" for="inlineRadio1">Yes</label>
+                                            </div>
+                                            <div class="form-check form-check-inline">
+                                                <input class="form-check-input" type="radio" formControlName="visual"
+                                                    id="inlineRadio2" value="false">
+                                                <label class="form-check-label" for="inlineRadio2">No</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </fieldset>
+                                <p *ngIf="healthRecord.visual"><i>Your current record: <b>yes</b></i></p>
+                                <p *ngIf="!healthRecord.visual"><i>Your current record: <b>no</b></i></p>
+                                <hr>
+                                <fieldset class="form-group">
+                                    <div class="row">
+                                        <legend class="col-form-label pt-0"><b>Back or Joint Problems (arthritis)</b></legend>
+                                        <div class="col-sm-10">
+                                            <div class="form-check form-check-inline">
+                                                <input class="form-check-input" type="radio" formControlName="joint"
+                                                    id="inlineRadio1" value="true">
+                                                <label class="form-check-label" for="inlineRadio1">Yes</label>
+                                            </div>
+                                            <div class="form-check form-check-inline">
+                                                <input class="form-check-input" type="radio" formControlName="joint"
+                                                    id="inlineRadio2" value="false">
+                                                <label class="form-check-label" for="inlineRadio2">No</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </fieldset>
+                                <p *ngIf="healthRecord.joint"><i>Your current record: <b>yes</b></i></p>
+                                <p *ngIf="!healthRecord.joint"><i>Your current record: <b>no</b></i></p>
+                                <hr>
+                                <fieldset class="form-group">
+                                    <div class="row">
+                                        <legend class="col-form-label pt-0"><b>Depression or Severe Anxiety</b></legend>
+                                        <div class="col-sm-10">
+                                            <div class="form-check form-check-inline">
+                                                <input class="form-check-input" type="radio" formControlName="depression"
+                                                    id="inlineRadio1" value="true">
+                                                <label class="form-check-label" for="inlineRadio1">Yes</label>
+                                            </div>
+                                            <div class="form-check form-check-inline">
+                                                <input class="form-check-input" type="radio" formControlName="depression"
+                                                    id="inlineRadio2" value="false">
+                                                <label class="form-check-label" for="inlineRadio2">No</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </fieldset>
+                                <p *ngIf="healthRecord.depression"><i>Your current record: <b>yes</b></i></p>
+                                <p *ngIf="!healthRecord.depression"><i>Your current record: <b>no</b></i></p>
+                                <hr>
+
+                            </div>
+                            <div class="col-4">
+                                <fieldset class="form-group">
+                                    <div class="row">
+                                        <legend class="col-form-label pt-0"><b>Cancer</b></legend>
+                                        <div class="col-sm-10">
+                                            <div class="form-check form-check-inline">
+                                                <input class="form-check-input" type="radio" formControlName="cancer"
+                                                    id="inlineRadio1" value="true">
+                                                <label class="form-check-label" for="inlineRadio1">Yes</label>
+                                            </div>
+                                            <div class="form-check form-check-inline">
+                                                <input class="form-check-input" type="radio" formControlName="cancer"
+                                                    id="inlineRadio2" value="false">
+                                                <label class="form-check-label" for="inlineRadio2">No</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </fieldset>
+                                <p *ngIf="healthRecord.cancer"><i>Your current record: <b>yes</b></i></p>
+                                <p *ngIf="!healthRecord.cancer"><i>Your current record: <b>no</b></i></p>
+                                <hr>
+                                <fieldset class="form-group">
+                                    <div class="row">
+                                        <legend class="col-form-label pt-0"><b>Liver Problems (hepatitis/jaundice)</b></legend>
+                                        <div class="col-sm-10">
+                                            <div class="form-check form-check-inline">
+                                                <input class="form-check-input" type="radio" formControlName="liver"
+                                                    id="inlineRadio1" value="true">
+                                                <label class="form-check-label" for="inlineRadio1">Yes</label>
+                                            </div>
+                                            <div class="form-check form-check-inline">
+                                                <input class="form-check-input" type="radio" formControlName="liver"
+                                                    id="inlineRadio2" value="false">
+                                                <label class="form-check-label" for="inlineRadio2">No</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </fieldset>
+                                <p *ngIf="healthRecord.liver"><i>Your current record: <b>yes</b></i></p>
+                                <p *ngIf="!healthRecord.liver"><i>Your current record: <b>no</b></i></p>
+                                <hr>
+                                <fieldset class="form-group">
+                                    <div class="row">
+                                        <legend class="col-form-label pt-0"><b>Thyroid Problems</b></legend>
+                                        <div class="col-sm-10">
+                                            <div class="form-check form-check-inline">
+                                                <input class="form-check-input" type="radio" formControlName="thyroid"
+                                                    id="inlineRadio1" value="true">
+                                                <label class="form-check-label" for="inlineRadio1">Yes</label>
+                                            </div>
+                                            <div class="form-check form-check-inline">
+                                                <input class="form-check-input" type="radio" formControlName="thyroid"
+                                                    id="inlineRadio2" value="false">
+                                                <label class="form-check-label" for="inlineRadio2">No</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </fieldset>
+                                <p *ngIf="healthRecord.thyroid"><i>Your current record: <b>yes</b></i></p>
+                                <p *ngIf="!healthRecord.thyroid"><i>Your current record: <b>no</b></i></p>
+                                <hr>
+                                <fieldset class="form-group">
+                                    <div class="row">
+                                        <legend class="col-form-label pt-0"><b>Hearing Problems</b></legend>
+                                        <div class="col-sm-10">
+                                            <div class="form-check form-check-inline">
+                                                <input class="form-check-input" type="radio" formControlName="hearing"
+                                                    id="inlineRadio1" value="true">
+                                                <label class="form-check-label" for="inlineRadio1">Yes</label>
+                                            </div>
+                                            <div class="form-check form-check-inline">
+                                                <input class="form-check-input" type="radio" formControlName="hearing"
+                                                    id="inlineRadio2" value="false">
+                                                <label class="form-check-label" for="inlineRadio2">No</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </fieldset>
+                                <p *ngIf="healthRecord.hearing"><i>Your current record: <b>yes</b></i></p>
+                                <p *ngIf="!healthRecord.hearing"><i>Your current record: <b>no</b></i></p>
+                                <hr>
+
+                                <fieldset class="form-group">
+                                    <div class="row">
+                                        <legend class="col-form-label pt-0"><b>Have you ever done drugs</b></legend>
+                                        <div class="col-sm-10">
+                                            <div class="form-check form-check-inline">
+                                                <input class="form-check-input" type="radio" formControlName="drugs"
+                                                    id="inlineRadio1" value="true">
+                                                <label class="form-check-label" for="inlineRadio1">Yes</label>
+                                            </div>
+                                            <div class="form-check form-check-inline">
+                                                <input class="form-check-input" type="radio" formControlName="drugs"
+                                                    id="inlineRadio2" value="false">
+                                                <label class="form-check-label" for="inlineRadio2">No</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </fieldset>
+                                <p *ngIf="healthRecord.drugs"><i>Your current record: <b>yes</b></i></p>
+                                <p *ngIf="!healthRecord.drugs"><i>Your current record: <b>no</b></i></p>
+                                <hr>
+                                <fieldset class="form-group">
+                                    <div class="row">
+                                        <legend class="col-form-label pt-0"><b>Are you Sexually Active?</b></legend>
+                                        <div class="col-sm-10">
+                                            <div class="form-check form-check-inline">
+                                                <input class="form-check-input" type="radio" formControlName="sexually"
+                                                    id="inlineRadio1" value="true">
+                                                <label class="form-check-label" for="inlineRadio1">Yes</label>
+                                            </div>
+                                            <div class="form-check form-check-inline">
+                                                <input class="form-check-input" type="radio" formControlName="sexually"
+                                                    id="inlineRadio2" value="false">
+                                                <label class="form-check-label" for="inlineRadio2">No</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </fieldset>
+                                <p *ngIf="healthRecord.sexually"><i>Your current record: <b>yes</b></i></p>
+                                <p *ngIf="!healthRecord.sexually"><i>Your current record: <b>no</b></i></p>
+                                <hr>
+                                <fieldset class="form-group">
+                                    <div class="row">
+                                        <legend class="col-form-label pt-0"><b>Do you exercise regularly</b></legend>
+                                        <div class="col-sm-10">
+                                            <div class="form-check form-check-inline">
+                                                <input class="form-check-input" type="radio" formControlName="exercise"
+                                                    id="inlineRadio1" value="true">
+                                                <label class="form-check-label" for="inlineRadio1">Yes</label>
+                                            </div>
+                                            <div class="form-check form-check-inline">
+                                                <input class="form-check-input" type="radio" formControlName="exercise"
+                                                    id="inlineRadio2" value="false">
+                                                <label class="form-check-label" for="inlineRadio2">No</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </fieldset>
+                                <p *ngIf="healthRecord.exercise"><i>Your current record: <b>yes</b></i></p>
+                                <p *ngIf="!healthRecord.exercise"><i>Your current record: <b>no</b></i></p>
+                                <hr>
+                                <fieldset class="form-group">
+                                    <div class="row">
+                                        <legend class="col-form-label pt-0"><b>Do you have a living will?</b></legend>
+                                        <div class="col-sm-10">
+                                            <div class="form-check form-check-inline">
+                                                <input class="form-check-input" type="radio" formControlName="livingWill"
+                                                    id="inlineRadio1" value="true">
+                                                <label class="form-check-label" for="inlineRadio1">Yes</label>
+                                            </div>
+                                            <div class="form-check form-check-inline">
+                                                <input class="form-check-input" type="radio" formControlName="livingWill"
+                                                    id="inlineRadio2" value="false">
+                                                <label class="form-check-label" for="inlineRadio2">No</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </fieldset>
+                                <p *ngIf="healthRecord.livingWill"><i>Your current record: <b>yes</b></i></p>
+                                <p *ngIf="!healthRecord.livingWill"><i>Your current record: <b>no</b></i></p>
+                                <hr>
+                            </div>
+                            <div class="col-4">
+                                <fieldset class="form-group">
+                                    <div class="row">
+                                        <legend class="col-form-label pt-0"><b>Do you smoke?</b></legend>
+                                        <div class="col-sm-10">
+                                            <div class="form-check form-check-inline">
+                                                <input class="form-check-input" type="radio" formControlName="smoke"
+                                                    id="inlineRadio1" value="true">
+                                                <label class="form-check-label" for="inlineRadio1">Yes</label>
+                                            </div>
+                                            <div class="form-check form-check-inline">
+                                                <input class="form-check-input" type="radio" formControlName="smoke"
+                                                    id="inlineRadio2" value="false">
+                                                <label class="form-check-label" for="inlineRadio2">No</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </fieldset>
+                                <p *ngIf="healthRecord.smoke"><i>Your current record: <b>yes</b></i></p>
+                                <p *ngIf="!healthRecord.smoke"><i>Your current record: <b>no</b></i></p>
+                                <div class="form-group">
+                                    <label for="exampleFormControlSelect1"><b>If yes how often:</b></label>
+                                    <select class="form-control" id="exampleFormControlSelect1"
+                                    formControlName="smokefreq">
+                                        <option>Never</option>
+                                        <option>Sometimes</option>
+                                        <option>Often</option>
+                                    </select>
+                                </div>
+                                <p *ngIf="healthRecord.smokefreq.frequency === 'Never'"><i>Your current record: <b>never</b></i></p>
+                                <p *ngIf="healthRecord.smokefreq.frequency === 'Sometimes'"><i>Your current record: <b>sometimes</b></i></p>
+                                <p *ngIf="healthRecord.smokefreq.frequency === 'Often'"><i>Your current record: <b>often</b></i></p>
+                                <hr>
+                                <fieldset class="form-group">
+                                    <div class="row">
+                                        <legend class="col-form-label pt-0"><b>Do you use chewing tobacco or snuff?
+                                        </b></legend>
+                                        <div class="col-sm-10">
+                                            <div class="form-check form-check-inline">
+                                                <input class="form-check-input" type="radio" formControlName="tobacco"
+                                                    id="inlineRadio1" value="true">
+                                                <label class="form-check-label" for="inlineRadio1">Yes</label>
+                                            </div>
+                                            <div class="form-check form-check-inline">
+                                                <input class="form-check-input" type="radio" formControlName="tobacco"
+                                                    id="inlineRadio2" value="false">
+                                                <label class="form-check-label" for="inlineRadio2">No</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </fieldset>
+                                <p *ngIf="healthRecord.tobacco"><i>Your current record: <b>yes</b></i></p>
+                                <p *ngIf="!healthRecord.tobacco"><i>Your current record: <b>no</b></i></p>
+                                <div class="form-group">
+                                    <label for="exampleFormControlSelect1"><b>If yes how often:</b></label>
+                                    <select class="form-control" id="exampleFormControlSelect1"
+                                        formControlName="tobaccofreq">
+                                        <option>Never</option>
+                                        <option>Sometimes</option>
+                                        <option>Often</option>
+                                    </select>
+                                </div>
+                                <p *ngIf="healthRecord.tobaccofreq.frequency === 'Never'"><i>Your current record: <b>never</b></i></p>
+                                <p *ngIf="healthRecord.tobaccofreq.frequency === 'Sometimes'"><i>Your current record: <b>sometimes</b></i></p>
+                                <p *ngIf="healthRecord.tobaccofreq.frequency === 'Often'"><i>Your current record: <b>often</b></i></p>
+                                <hr>
+                                <fieldset class="form-group">
+                                    <div class="row">
+                                        <legend class="col-form-label pt-0"><b>Do you drink alcohol?</b></legend>
+                                        <div class="col-sm-10">
+                                            <div class="form-check form-check-inline">
+                                                <input class="form-check-input" type="radio" formControlName="alcohol"
+                                                    id="inlineRadio1" value="true">
+                                                <label class="form-check-label" for="inlineRadio1">Yes</label>
+                                            </div>
+                                            <div class="form-check form-check-inline">
+                                                <input class="form-check-input" type="radio" formControlName="alcohol"
+                                                    id="inlineRadio2" value="false">
+                                                <label class="form-check-label" for="inlineRadio2">No</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </fieldset>
+                                <p *ngIf="healthRecord.alcohol"><i>Your current record: <b>yes</b></i></p>
+                                <p *ngIf="!healthRecord.alcohol"><i>Your current record: <b>no</b></i></p>
+                                <div class="form-group">
+                                    <label for="exampleFormControlSelect1"><b>If yes how often:</b></label>
+                                    <select class="form-control" id="exampleFormControlSelect1"
+                                        formControlName="alcoholfreq">
+                                        <option>Never</option>
+                                        <option>Sometimes</option>
+                                        <option>Often</option>
+                                    </select>
+                                </div>
+                                <p *ngIf="healthRecord.alcoholfreq.frequency === 'Never'"><i>Your current record: <b>never</b></i></p>
+                                <p *ngIf="healthRecord.alcoholfreq.frequency === 'Sometimes'"><i>Your current record: <b>sometimes</b></i></p>
+                                <p *ngIf="healthRecord.alcoholfreq.frequency === 'Often'"><i>Your current record: <b>often</b></i></p>
+                                <hr>
+                                <fieldset class="form-group">
+                                    <div class="row">
+                                        <legend class="col-form-label pt-0"><b>Do you drink caffeinated beverages?</b></legend>
+                                        <div class="col-sm-10">
+                                            <div class="form-check form-check-inline">
+                                                <input class="form-check-input" type="radio" formControlName="caffeinated"
+                                                    id="inlineRadio1" value="true">
+                                                <label class="form-check-label" for="inlineRadio1">Yes</label>
+                                            </div>
+                                            <div class="form-check form-check-inline">
+                                                <input class="form-check-input" type="radio" formControlName="caffeinated"
+                                                    id="inlineRadio2" value="false">
+                                                <label class="form-check-label" for="inlineRadio2">No</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </fieldset>
+                                <p *ngIf="healthRecord.caffeinated"><i>Your current record: <b>yes</b></i></p>
+                                <p *ngIf="!healthRecord.caffeinated"><i>Your current record: <b>no</b></i></p>
+                                <div class="form-group">
+                                    <label for="exampleFormControlSelect1"><b>If yes how often:</b></label>
+                                    <select class="form-control" id="exampleFormControlSelect1"
+                                        formControlName="caffeinatedfreq">
+                                        <option>Never</option>
+                                        <option>Sometimes</option>
+                                        <option>Often</option>
+                                    </select>
+                                </div>
+                                <p *ngIf="healthRecord.caffeinatedfreq.frequency === 'Never'"><i>Your current record: <b>never</b></i></p>
+                                <p *ngIf="healthRecord.caffeinatedfreq.frequency === 'Sometimes'"><i>Your current record: <b>sometimes</b></i></p>
+                                <p *ngIf="healthRecord.caffeinatedfreq.frequency === 'Often'"><i>Your current record: <b>often</b></i></p>
+                                <hr>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-outline-success">Save changes</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

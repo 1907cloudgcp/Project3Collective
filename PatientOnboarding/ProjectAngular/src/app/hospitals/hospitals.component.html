@@ -1,0 +1,20 @@
+<div id="maindiv">
+<app-navbar></app-navbar>
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="card col-3" style="width: 18rem;"  *ngFor='let temp of hospitals'>
+            <!-- <img src="assets/{{temp.id}}.jpeg" class="card-img-top"> -->
+            <img  class="card-img-top" src="assets/{{temp.id}}.jpeg"
+      onError="this.src='assets/1.jpeg';" />
+            <div class="card-body">
+                <h5 class="card-title">{{temp.name}}</h5>
+                <p class="card-text" style="margin: 0"><b>address: </b>{{temp.address}}</p>
+                <p class="card-text" style="margin: 0"><b>state: </b>{{temp.state}}</p>
+                <p class="card-text" ><b>zip: </b>{{temp.zip}}</p>
+                <div><a [routerLink]="['/app-hospital-info', temp.id]" class="btn btn-success">Details</a></div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- <app-footer></app-footer> -->
+</div>

@@ -1,0 +1,159 @@
+<div id="maindiv">
+<app-navbar></app-navbar>
+<div class="container">
+    <div class="row">
+            <!-- <img class="image" src="assets/user{{user.id}}.jpeg"> -->
+            <!-- <img class="image" src="assets/mask.webp"> -->
+            <img  class="image" src="assets/user{{user.id}}.jpeg"
+      onError="this.src='assets/def.jpg';" />
+        <div class="col-5"></div>
+        <!-- <i class="material-icons" style="font-size: 450px">person_outline</i> -->
+        <div class="col-5 bio">
+            <h5>{{user.firstName}} {{user.lastName}}</h5>
+            <!-- <p><b>age: </b>22</p> -->
+            <p><b>username: </b>{{user.username}}</p>
+            <p><b>address: </b>{{user.address}}</p>
+            <p><b>state: </b>{{user.state}}</p>
+            <p><b>zipcode: </b>{{user.zip}}</p>
+            <p><b>contact number: </b>{{user.number}}</p>
+            <p><b>contact email: </b>{{user.email}}</p>
+            <!-- Button trigger modal -->
+            <button type="button" class="btn btn-outline-success" data-toggle="modal" data-target="#userModal">
+                Edit information
+            </button>
+            <app-user-health-record></app-user-health-record>
+            <!-- Modal -->
+            <div class="modal fade" id="userModal" tabindex="-1" role="dialog" aria-labelledby="userModalLabel"
+                aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="userModalLabel">Edit Profile</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <form [formGroup]="userEdit" (ngSubmit)="edit()">
+                                <div class="container">
+                                    <div class="row">
+                                        <div class="col-4">
+                                            <div class="form-group">
+                                                <label for="exampleFormControlInput1">First Name</label>
+                                                    <input type="text" class="form-control" placeholder="{{user.firstName}}"
+                                                    formControlName="firstname">
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="exampleFormControlInput1">Middle initial</label>
+                                                <input type="text" class="form-control" placeholder="{{user.middleInit}}" 
+                                                formControlName="middleinit">
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="exampleFormControlInput1">Last name</label>
+                                                <input type="text" class="form-control" placeholder="{{user.lastName}}"
+                                                formControlName="lastname">
+                                            </div>
+                                            <!-- <div class="form-group">
+                                                <label for="exampleFormControlSelect1">Salutation</label>
+                                                <select class="form-control" id="exampleFormControlSelect1" formControlName="salutation"> 
+                                                    <option>Mr.</option>
+                                                    <option>Ms.</option>
+                                                    <option>Mrs.</option>
+                                                </select>
+                                            </div> -->
+                                            <!-- <div class="form-group">
+                                                <label for="exampleFormControlSelect1">Suffix</label>
+                                                <select class="form-control" id="exampleFormControlSelect1"
+                                                    formControlName="suffix">
+                                                    <option>Sr.</option>
+                                                    <option>Jr.</option>
+                                                </select>
+                                            </div> -->
+                                        </div>
+                                        <div class="col-4">
+                                            <div class="form-group">
+                                                <label for="exampleFormControlInput1">Street Address</label>
+                                                <input type="text" class="form-control" placeholder="{{user.address}}"
+                                                formControlName="address">
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="exampleFormControlInput1">State</label>
+                                                <input type="text" class="form-control" placeholder="{{user.state}}"
+                                                formControlName="state">
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="exampleFormControlInput1">Zip code</label>
+                                                <input type="text" class="form-control" placeholder="{{user.zip}}"
+                                                formControlName="zip">
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="exampleFormControlInput1">Contact number</label>
+                                                <input type="text" class="form-control" placeholder="{{user.number}}"
+                                                formControlName="number">
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="exampleFormControlInput1">Email</label>
+                                                <input type="email" class="form-control" placeholder="{{user.email}}"
+                                                formControlName="email">
+                                            </div>
+                                        </div>
+                                        <div class="col-4">
+                                            <!-- <div class="form-group">
+                                                <label for="exampleFormControlSelect1">Marital status</label>
+                                                <select class="form-control" id="exampleFormControlSelect1"
+                                                    formControlName="marital">
+                                                    <option>Married</option>
+                                                    <option>Single</option>
+                                                    <option>Widowed</option>
+                                                    <option>Divorced</option>
+                                                </select>
+                                            </div> -->
+                                            <!-- <div class="form-group">
+                                                <label for="exampleFormControlSelect1">Ethnicity</label>
+                                                <select class="form-control" id="exampleFormControlSelect1"
+                                                    formControlName="ethnicity">
+                                                    <option>Hispanic</option>
+                                                    <option>Nonhispanic</option>
+                                                    <option>Unknow</option>
+                                                </select>
+                                            </div> -->
+                                            <!-- <div class="form-group">
+                                                <label for="exampleFormControlSelect1">Race</label>
+                                                <select class="form-control" id="exampleFormControlSelect1"
+                                                    formControlName="race">
+                                                    <option>American Indian or Alaska native</option>
+                                                    <option>Bi-racial</option>
+                                                    <option>Black/African American</option>
+                                                    <option>White/Caucasian</option>
+                                                    <option>Middle Eastern</option>
+                                                    <option>Hawaian/Pacific Islander</option>
+                                                    <option>Other</option>
+                                                    <option>Unknown</option>
+                                                </select>
+                                            </div> -->
+                                            <!-- <div class="form-group">
+                                                <label for="exampleFormControlSelect1">Sex</label>
+                                                <select class="form-control" id="exampleFormControlSelect1"
+                                                    formControlName="sex">
+                                                    <option>Male</option>
+                                                    <option>Female</option>
+                                                </select>
+                                            </div> -->
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                    <button type="submit" class="btn btn-outline-success">Save changes</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row" style="height: 100px;"></div>
+<!-- <app-footer></app-footer> -->
+</div>

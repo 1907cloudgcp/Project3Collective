@@ -1,0 +1,52 @@
+.card {
+    margin-top: 50px;
+    max-width: 670px;
+}
+
+.card-img {
+    height: 100%;
+}
+
+.image {
+    width: 45%;
+    margin-top: 50px;
+    position: absolute;
+}
+
+.bio {
+    text-align: justify;
+    font-size: 17px;
+    background-color: hsla(0,0%,100%,.87);
+    padding: 20px 20px;
+    box-shadow: 0 0 10px -3px #000;
+    color: #000;
+    font-weight: 200;
+    margin-top: 200px;
+}
+
+#maindiv {
+    height: 100vh;
+    background-image: url(https://wallpaperplay.com/walls/full/d/8/b/329997.jpg);
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+.btn-success {
+    color: #373f39;
+    border-color: #3d453e;
+    margin: 0px 16px;
+    background-color: #d5e1d3;
+}
+
+.btn-success:hover {
+    color: #fff !important;
+    background-color: #a6b7a3;
+}
+
+.btn-success.focus, .btn-success:focus {
+    box-shadow: 0 0 0 0.2rem rgba(82, 108, 88, 0.5);
+}
+
+.btn-success:not(:disabled):not(.disabled).active:focus, .btn-success:not(:disabled):not(.disabled):active:focus, .show>.btn-success.dropdown-toggle:focus {
+    box-shadow: 0 0 0 0.2rem rgba(82, 108, 88, 0.5);
+}
