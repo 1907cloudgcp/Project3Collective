@@ -1,0 +1,42 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: revdoctors
+  labels:
+    app: revdoctors
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: revdoctors
+  
+  # Pod template
+  template:
+    metadata:
+      labels:
+        app: revdoctors
+    spec:
+      containers:
+        - name: test
+          image: gcr.io/just-mechanic-253313/revdoctors:<VERSION>
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 8080
+#      imagePullSecrets:
+#        - name: gitlab-registry
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: revdoctors
+  labels:
+    app: revdoctors
+spec:
+  type: LoadBalancer
+  ports:
+    - port: 80
+      targetPort: 8080
+      protocol: TCP
+      name: http
+  selector:
+      app: revdoctors
