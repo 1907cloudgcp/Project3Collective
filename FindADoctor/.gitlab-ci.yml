@@ -1,0 +1,151 @@
+stages:
+  - npm-package
+#  - push
+  - copy
+  - mvn-package
+  - push
+  - deploy
+npm-package:
+  image: trion/ng-cli
+  stage: npm-package
+  only:
+    - master
+  script:
+    # --- The npm-package step ---
+    # --- here we install dependencies ---
+    # --- after every step we copy a log to dist/ to send to a bucket ---
+    - cd  Master/Staging/Development/Ben/project
+    - npm install --save @fullcalendar/angular @fullcalendar/core @fullcalendar/daygrid
+    - npm install @fullcalendar/core @fullcalendar/daygrid @fullcalendar/timegrid @fullcalendar/list @fullcalendar/interaction -- save
+    - npm install @fullcalendar/list @fullcalendar/timegrid @fullcalendar/daygrid --save
+    - npm install jquery moment fullcalendar --save
+    - npm install --save-dev @types/jquery
+    - npm install @types/jquery
+    - npm install angular-moment moment --save
+    - npm install @types/fullcalendar -s
+    - npm install fullcalendar@3.6.1
+    - npm install --save hammerjs
+    - npm install angular-calendar angular-calendar-week-hours-view @angular/animations
+    - ng add igniteui-angular
+    - 'sed -i "s|\"scripts\": \[\]|$var|g" angular.json'
+    - 'sed -i "s|\"scripts\": \[\]|$var|g" angular.json'
+    - 'sed -i "1s/^/interface JQuery { fullCalendar(options?: any); }\n/" node_modules/@types/jquery/JQuery.d.ts'
+    - node --max_old_space_size=8192 node_modules/@angular/cli/bin/ng build
+    #- ng build
+    - echo "indigo/pink yes yes" | ng add @angular/material
+    
+    - 'curl --location --output log-npm-package.txt --header "PRIVATE-TOKEN: $API_ACCESS_TOKEN" "https://gitlab.com/api/v4/projects/$CI_PROJECT_ID/jobs/$CI_JOB_ID/trace"'
+    - cp log-npm-package.txt dist/
+  artifacts:
+    paths:
+      - Master/Staging/Development/Ben/project/dist/
+copy:
+  stage: copy
+  image: dtzar/helm-kubectl
+  only:
+    - master
+  dependencies:
+    - npm-package
+  script:
+    # --- copy stage ---
+    # --- here we set service account to auth with google and copied dist/ contents to bucket ---
+    - TIME_TWO=`date '+%F_%H:%M'`
+    - apk --no-cache add curl
+      # Install CA certs, openssl to https downloads, python for gcloud sdk
+    - apk add --update make ca-certificates openssl python
+    - update-ca-certificates
+    # Download and install Google Cloud SDK
+    - wget https://dl.google.com/dl/cloudsdk/release/google-cloud-sdk.tar.gz
+    - tar zxvf google-cloud-sdk.tar.gz && ./google-cloud-sdk/install.sh --quiet --usage-reporting=false --path-update=true
+    - PATH="google-cloud-sdk/bin:${PATH}"
+    - gcloud --quiet components update
+    - gcloud components install beta
+    - echo $GCP_SERVICE_KEY > ${HOME}/gcloud-service-key.json
+    - gcloud auth activate-service-account --key-file ${HOME}/gcloud-service-key.json
+    - gcloud config set project just-mechanic-253313
+    - gsutil cp -r Master/Staging/Development/Ben/project/dist/project/* gs://www.revdoctors.org
+    - 'curl --location --output log-copy.txt --header "PRIVATE-TOKEN: $API_ACCESS_TOKEN" "https://gitlab.com/api/v4/projects/$CI_PROJECT_ID/jobs/$CI_JOB_ID/trace"'
+    - cp log-copy.txt Master/Staging/Development/Ben/project/dist/
+  artifacts:
+    paths:
+      - Master/Staging/Development/Ben/project/dist/    
+mvn-package:
+  image: maven:3.6.2-jdk-8
+  stage: mvn-package
+  only:
+    - master
+  script:
+    # --- The mvn-package ---
+    # here run maven package. we auth with gitlab to access the log trace. copy the log to target
+    - TIME_THREE=`date '+%F_%H:%M'`
+    - apt-get update 
+    - apt-get install curl
+    - cd Master/Staging/Development/Ben/RevatureDoctor
+    - mvn package
+    - 'curl --location --output log-mvn-package.txt --header "PRIVATE-TOKEN: $API_ACCESS_TOKEN" "https://gitlab.com/api/v4/projects/$CI_PROJECT_ID/jobs/$CI_JOB_ID/trace"'
+    - cp log-mvn-package.txt target/
+    - cp ../project/dist/log-copy.txt target/
+    - cp ../project/dist/log-npm-package.txt target/
+  artifacts:
+    paths:
+      - Master/Staging/Development/Ben/RevatureDoctor/target/
+push:
+  image: docker:latest
+  services:
+    - docker:dind
+  stage: push
+  script:
+    # --- The push stage ---
+    # here we build the docker image we deploy to kube later. login with a service key env variable and push it to gcr
+    - TIME=`date '+%F_%H:%M'`
+    - apk --no-cache add curl
+    - docker build -t gcr.io/just-mechanic-253313/final:${CI_COMMIT_SHORT_SHA} .
+    - docker login -u _json_key -p "$GCP_SERVICE_KEY" https://gcr.io
+    - docker push gcr.io/just-mechanic-253313/final:${CI_COMMIT_SHORT_SHA}
+    - 'curl --location --output push.txt --header "PRIVATE-TOKEN: $API_ACCESS_TOKEN" "https://gitlab.com/api/v4/projects/$CI_PROJECT_ID/jobs/$CI_JOB_ID/trace"'
+    - cp push.txt Master/Staging/Development/Ben/RevatureDoctor/target/
+    #- ls -a .
+  artifacts:
+    paths:
+      - Master/Staging/Development/Ben/RevatureDoctor/target/
+deploy:
+  stage: deploy
+  image: 'gcloud-with-envsubst:latest'
+  only:
+    - master
+  image: dtzar/helm-kubectl
+  dependencies:
+    - push
+
+  script:
+    # --- The deploy stage ---
+    # here we install gcloud so we can use google cloud sdk. we apply the kubernetes.yaml file to deploy the image we made earlier to kubernetes.
+    # we also copy all the logs to a bucket. Good luck next batch.
+    - TIME_FOUR=`date '+%F_%H:%M'`
+      # Install CA certs, openssl to https downloads, python for gcloud sdk
+    - apk --no-cache add curl
+    - apk add --update make ca-certificates openssl python
+    - update-ca-certificates
+    # Download and install Google Cloud SDK
+    - wget https://dl.google.com/dl/cloudsdk/release/google-cloud-sdk.tar.gz
+    - tar zxvf google-cloud-sdk.tar.gz && ./google-cloud-sdk/install.sh --quiet --usage-reporting=false --path-update=true
+    - PATH="google-cloud-sdk/bin:${PATH}"
+    - gcloud --quiet components update
+    - gcloud components install beta
+    - echo $GCP_SERVICE_KEY > ${HOME}/gcloud-service-key.json
+    - gcloud auth activate-service-account --key-file ${HOME}/gcloud-service-key.json
+    - gcloud config set project just-mechanic-253313
+    - gcloud config set container/cluster cluster1
+    - gcloud config set compute/zone us-central1-c
+    - gcloud container clusters get-credentials cluster1 --zone us-central1-c
+    #- kubectl delete services expample
+    - sed -i "s/<VERSION>/${CI_COMMIT_SHORT_SHA}/g" kubernetes.yaml
+    - 'curl --location --output deploy.txt --header "PRIVATE-TOKEN: $API_ACCESS_TOKEN" "https://gitlab.com/api/v4/projects/$CI_PROJECT_ID/jobs/$CI_JOB_ID/trace"'
+    - cp deploy.txt Master/Staging/Development/Ben/RevatureDoctor/target/
+    - sed -i "s/<VERSION>/${CI_COMMIT_SHORT_SHA}/g" kubernetes.yaml
+    - kubectl apply -f kubernetes.yaml
+    - gsutil cp Master/Staging/Development/Ben/RevatureDoctor/target/deploy.txt  gs://revdoctors_log_bucket/pipeline/$TIME_FOUR/
+    - gsutil cp Master/Staging/Development/Ben/RevatureDoctor/target/push.txt  gs://revdoctors_log_bucket/pipeline/$TIME_FOUR/
+    - gsutil cp Master/Staging/Development/Ben/RevatureDoctor/target/log-npm-package.txt  gs://revdoctors_log_bucket/pipeline/$TIME_FOUR/
+    - gsutil cp Master/Staging/Development/Ben/RevatureDoctor/target/log-copy.txt  gs://revdoctors_log_bucket/pipeline/$TIME_FOUR/
+    - gsutil cp Master/Staging/Development/Ben/RevatureDoctor/target/log-mvn-package.txt  gs://revdoctors_log_bucket/pipeline/$TIME_FOUR/
