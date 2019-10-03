@@ -1,0 +1,33 @@
+<!DOCTYPE hibernate-configuration PUBLIC
+        "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+
+<hibernate-configuration>
+	<session-factory>
+		<property name="hibernate.connection.driver_class">org.postgresql.Driver</property>
+			
+		<property name="hibernate.dialect">org.hibernate.dialect.PostgreSQLDialect</property>
+		<property name="hibernate.show_sql">false</property>
+		<property name="hibernate.format_sql">false</property>
+		<property name="hibernate.connection.pool_size">10</property>
+		<property name="hibernate.hbm2ddl.auto">create</property>
+		<mapping class="com.model.Ethnicity"/>
+		<mapping class="com.model.MaritalStatus"/>
+		<mapping class="com.model.Patient"/>
+		<mapping class="com.model.Race"/>
+		<mapping class="com.model.Salutation"/>
+		<mapping class="com.model.Sex"/>
+		<mapping class="com.model.Suffix"/>
+		<mapping class="com.model.Hospital"/>
+		<mapping class="com.model.Insurance"/>
+		<mapping class="com.model.InsuranceName"/>
+		<mapping class="com.model.Medications"/>
+		<mapping class="com.model.EmergencyContact"/>
+		<mapping class="com.model.UserRole"/>
+		<mapping class="com.model.HealthRecord"/>
+		<mapping class="com.model.Frequency"/>
+		<mapping class="com.model.Doctor"/>
+		<mapping class="com.model.Admin"/>
+		<mapping class="com.model.Payment"/>
+	</session-factory>
+</hibernate-configuration>
