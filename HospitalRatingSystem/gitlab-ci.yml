@@ -1,0 +1,141 @@
+# image: tomcat:latest
+# image: maven:latest
+# image: tomcat:8.5.46-jdk8-openjdk
+image: google/cloud-sdk
+#varaibles: add this later
+
+# These don't exist and look optional. Tutorial has them
+#cache:
+#  paths:
+#  - target/
+#  - .m2/repository
+variables:
+  safenurturedbusername: "safenurturedb"
+  safenurturedbpassword: "p4ssw0rd"
+  safenurturedburl: "jdbc:oracle:thin:@trainingdb.cv5kbodop30m.us-east-2.rds.amazonaws.com:1521:orcl"
+  DOCKER_TLS_CERTDIR: ""
+  #DOCKER_TLS_CERTDIR: "/certs"
+  DOCKER_DRIVER: overlay2
+  DOCKER_HOST: tcp://docker:2375
+  # documentation says this can make error go away
+services:
+  #- docker:19.03.0-dind
+  - docker:18.06.0-dind
+  # documentation says this can make error go away
+  #- docker:dind
+  #saw a lot of post that didnt specified the dind version, might be woorth trying it out
+before_script:
+  - apt-get update
+  #- apt-get install maven -y
+  # moved to stage specific because one of them doesn't use it and it wastes time
+  
+  - python -v #verifies python version
+  # - apt-get google-cloud-sdk
+  # google am broke
+build:
+  stage: build
+  script:
+    - apt-get install maven -y
+    - mvn compile # online tutorial
+  only:
+    - staging
+test:
+  stage: test
+  script:
+    - apt-get install maven -y
+    - mvn test
+  only:
+    - staging
+deployfrontend:
+  stage: deploy
+#  services:
+#    - node:12
+  script:
+  - gcloud auth activate-service-account --key-file Service_Accounts/cloud_service_account.json
+# works but no we doing it a different way - apt-get install nodejs -y
+  - curl -sL https://deb.nodesource.com/setup_12.x | bash -
+  - apt-get install -y nodejs
+  - apt-get install aptitude -y
+  - aptitude install npm -y
+  #- apt-get install -y npm -f 
+  #should fix dependencies
+#  - apt-get install npm -y
+ # - npm install -g @angular/cli
+
+  # this was a challenge because of the bad naming conventions for stuff
+  #- cd safenurture
+  #- npm install
+  #- ng build
+  #- docker build -t image -f Dockerfile .
+  ##- docker build -t image -f safenurture/Dockerfile .
+  ##- docker tag image gcr.io/project3-253313/github.com/image2
+  ##- gcloud docker -- push gcr.io/project3-253313/github.com/image2
+  ##- mv app.yaml dead.yaml
+  ##- mv safenurture/app.yaml app.yaml
+  ##- gcloud app deploy --project project3-253313 --image-url=gcr.io/project3-253313/github.com/image2:latest --stop-previous-version
+  - cd safenurture
+  
+  - npm install -g @angular/cli@8.3.4
+  - npm install angular
+  - npm install
+  - npm audit fix
+  - ng build
+  
+  - cd ..
+  - gsutil cp -r safenurture/dist gs://www.safenurture.com
+  - gsutil cp -r safenurture/dist/safenurture/* gs://www.safenurture.com/
+ # - gsutil cp -r safenurture/dist gs://safenurturefrontend/
+ 
+ # - gsutil cp -r safenurture/dist gs://safenurturefrontend/dist/
+  only:
+    - staging
+deploybackend:
+  stage: deploy
+  script:
+  ###- apt-get install maven -y
+  #- cp -r SafeNurtureSpring a
+  - ls
+  #- mkdir SafeNurtureSpring/builds
+  #- mkdir SafeNurtureSpring/builds/TheTreLifestyle
+  #- mkdir SafeNurtureSpring/builds/TheTreLifestyle/project-2
+  #- cp -r a SafeNurtureSpring/builds/TheTreLifestyle/project-2/SafeNurtureSpring
+  ###- cd SafeNurtureSpring
+ # - java -version
+ # - mvn install -e -X
+ ### - mvn install
+ # - curl https://sdk.cloud.google.com | bash
+ # - exec -l $SHELL
+ # - apt-get install python2
+ # - curl https://sdk.cloud.google.com | bash && exec -l $SHELL
+ # - gcloud init --skip-diagnostics
+ # I don't think we need this
+  #- echo "BASKETBALLS"
+ ## - ls
+ ### - mvn package
+  - ls
+ ### - cd ..
+  - gcloud auth activate-service-account --key-file Service_Accounts/cloud_service_account.json
+  #- echo "COCA COLA"
+  - docker -v
+  #- dockerd
+  #- docker start
+  #- service docker start
+  #- docker dockerd
+  #- dockerd
+  
+  #- docker run -d --name gitlab-runner --restart always -v /var/run/docker.sock:/var/run/docker.sock -v /srv/gitlab-runner/config:/etc/gitlab-runner gitlab/gitlab-runner:latest
+  - ls
+  - docker build -t image -f Dockerfile .
+  # changed because it was giving me an error and it we don't have proper use for env's yet
+  # --build-arg safenurturedburl=${safenurturedburl} --build-arg safenurturedbusername=${safenurturedbusername} --build-arg safenurturedbpassword=${safenurturedbpassword} .
+  # I think database name is hard coded but <- DATABASE_NAME=${DATABASE_NAME}, JDBC_SCHEMA=${JDBC_SCHEMA}
+  #- echo "ELEPHANT"
+  - docker tag image gcr.io/project3-253313/github.com/image
+  #- echo ""
+  - gcloud docker -- push gcr.io/project3-253313/github.com/image
+  #- echo "FRIED WEBO"
+  #- y |
+  - gcloud app deploy --project project3-253313 --image-url=gcr.io/project3-253313/github.com/image:latest --stop-previous-version
+  #this step is getting skipped due to app engine taking minutes to deploy, and to deploy this version of the webpage we only needed the fron end.
+  only:
+    - staging
