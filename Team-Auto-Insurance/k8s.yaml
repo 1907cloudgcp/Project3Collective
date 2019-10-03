@@ -1,0 +1,55 @@
+apiVersion: apps/v1beta1
+kind: Deployment
+metadata:
+  name: auto-insurance
+
+spec:
+  revisionHistoryLimit: 1
+  replicas: 1
+
+  template:
+    metadata:
+      labels:
+        app: auto-insurance
+
+    spec:
+      containers:
+      - name: auto-insurance
+        image: gcr.io/aveture/auto-insurance:v1
+        env:
+        - name: DB_URL
+          value: "jdbc:postgresql://35.224.85.135:5432/postgres"
+        - name: DB_USERNAME
+          value: "postgres"
+        - name: DB_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: db-pass
+              key: password
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 8080
+        readinessProbe:
+          initialDelaySeconds: 250
+          periodSeconds: 60
+          httpGet:
+            path: /AutoInsurance/health.app
+            port: 8080
+        resources:
+          limits:
+            cpu: 70m
+          requests:
+            cpu: 70m
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: user-service
+spec:
+  type: LoadBalancer
+  ports:
+  - name: http
+    port: 80
+    targetPort: 8080
+  selector:
+    app: auto-insurance

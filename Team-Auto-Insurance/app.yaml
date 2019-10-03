@@ -1,0 +1,12 @@
+runtime: nodejs10
+handlers:
+- url: /
+  static_files: Auto-Insurance/index.html
+  upload: Auto-Insurance/index.html
+- url: /
+  static_dir: Auto-Insurance
+resources:
+  cpu: 0.2
+  memory_gb: 0.6
+manual_scaling:
+  instances: 1

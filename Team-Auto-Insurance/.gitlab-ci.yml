@@ -1,0 +1,106 @@
+stages:
+  - build
+  - package
+  - deploy
+  - logs
+
+build-frontend:
+  stage: build
+  image: node:latest
+  script:
+    - echo $CI_JOB_ID > build-frontend-id.txt
+    - cd Auto-Insurance
+    - npm install
+    - npm run build
+  artifacts:
+    paths:
+      - Auto-Insurance/dist
+      - build-frontend-id.txt
+
+build-backend:
+  stage: build
+  image: maven:latest
+  script:
+    - echo $CI_JOB_ID > build-backend-id.txt
+    - cd AutoInsurance
+    - mvn package
+  artifacts:
+    paths:
+      - AutoInsurance/target
+      - build-backend-id.txt
+
+package-backend:
+  stage: package
+  image: gitlab/dind
+  dependencies:
+    - build-backend
+  services:
+    - docker:dind
+  script:
+    - docker build -t gcr.io/aveture/auto-insurance:v1 .
+    - docker login -u _json_key -p "$GCLOUD_SERVICE_KEY" https://gcr.io
+    - docker push gcr.io/aveture/auto-insurance:v1
+    - echo $CI_JOB_ID > package-backend-id.txt
+  artifacts:
+    paths:
+      - package-backend-id.txt
+
+deploy-frontend:
+  stage: deploy
+  image: google/cloud-sdk
+  dependencies:
+    - build-frontend
+  script:
+    - echo $CI_JOB_ID > deploy-frontend-id.txt
+    - echo $GCLOUD_SERVICE_KEY > service.json
+    - gcloud auth activate-service-account --key-file service.json
+    - cp app.yaml Auto-Insurance/dist/app.yaml
+    - cd Auto-Insurance/dist
+    - gcloud app deploy --project=aveture
+  artifacts:
+    paths:
+      - deploy-frontend-id.txt
+
+deploy-backend:
+  stage: deploy
+  image: google/cloud-sdk
+  dependencies: []
+  script:
+    - echo $GCLOUD_SERVICE_KEY > service.json
+    - gcloud auth activate-service-account --key-file service.json
+    - gcloud container clusters get-credentials aveture-cluster --zone us-east1-b --project aveture
+    - kubectl apply -f k8s.yaml
+    - kubectl patch deployment auto-insurance -p "{\"spec\":{\"template\":{\"metadata\":{\"labels\":{\"date\":\"`date +'%s'`\"}}}}}"
+    - echo $CI_JOB_ID > deploy-backend-id.txt
+  artifacts:
+    paths:
+      - deploy-backend-id.txt
+
+upload-logs:
+  stage: logs
+  image: google/cloud-sdk
+  dependencies:
+    - build-frontend
+    - build-backend
+    - package-backend
+    - deploy-frontend
+    - deploy-backend
+  script:
+    - build_frontend_id=`cat build-frontend-id.txt`
+    - build_backend_id=`cat build-backend-id.txt`
+    - package_backend_id=`cat package-backend-id.txt`
+    - deploy_frontend_id=`cat deploy-frontend-id.txt`
+    - deploy_backend_id=`cat deploy-backend-id.txt`
+    - current_time=$(date "+%Y.%m.%d-%H:%M:%S")
+    - 'curl --location --output build-frontend-log-$current_time.txt --header "PRIVATE-TOKEN: $API_ACCESS_TOKEN" "https://gitlab.com/api/v4/projects/$CI_PROJECT_ID/jobs/$build_frontend_id/trace"'
+    - 'curl --location --output build-backend-log-$current_time.txt --header "PRIVATE-TOKEN: $API_ACCESS_TOKEN" "https://gitlab.com/api/v4/projects/$CI_PROJECT_ID/jobs/$build_backend_id/trace"'
+    - 'curl --location --output package-backend-log-$current_time.txt --header "PRIVATE-TOKEN: $API_ACCESS_TOKEN" "https://gitlab.com/api/v4/projects/$CI_PROJECT_ID/jobs/$package_backend_id/trace"'
+    - 'curl --location --output deploy-frontend-log-$current_time.txt --header "PRIVATE-TOKEN: $API_ACCESS_TOKEN" "https://gitlab.com/api/v4/projects/$CI_PROJECT_ID/jobs/$deploy_frontend_id/trace"'
+    - 'curl --location --output deploy-backend-log-$current_time.txt --header "PRIVATE-TOKEN: $API_ACCESS_TOKEN" "https://gitlab.com/api/v4/projects/$CI_PROJECT_ID/jobs/$deploy_backend_id/trace"'
+    - echo $GCLOUD_SERVICE_KEY > service.json
+    - gcloud auth activate-service-account --key-file service.json
+    - gsutil cp build-frontend-log-$current_time.txt gs://aveture-logs/gitlab-ci-logs
+    - gsutil cp build-backend-log-$current_time.txt gs://aveture-logs/gitlab-ci-logs
+    - gsutil cp package-backend-log-$current_time.txt gs://aveture-logs/gitlab-ci-logs
+    - gsutil cp deploy-frontend-log-$current_time.txt gs://aveture-logs/gitlab-ci-logs
+    - gsutil cp deploy-backend-log-$current_time.txt gs://aveture-logs/gitlab-ci-logs
