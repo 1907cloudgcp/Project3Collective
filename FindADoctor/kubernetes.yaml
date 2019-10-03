@@ -1,36 +1,53 @@
+# this is the kubernetes.yaml file used in the gitlab-ci.yaml where we deploy to kubernetes. 
+# the first part is a deployment. we specify 1 replica and the image we created in gcr and port
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: revdoctors
+  name: expample
   labels:
-    app: revdoctors
+    app: expample
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: revdoctors
+      app: expample
   
   # Pod template
   template:
     metadata:
       labels:
-        app: revdoctors
+        app: expample
     spec:
       containers:
         - name: test
-          image: gcr.io/just-mechanic-253313/revdoctors:<VERSION>
+          image: gcr.io/just-mechanic-253313/final:<VERSION>
           imagePullPolicy: Always
           ports:
             - containerPort: 8080
 #      imagePullSecrets:
 #        - name: gitlab-registry
 ---
+# here we used a ingress to allow http routing to a domain we used (www.revdoctors.org). 
+# this also enables cors
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: expample
+  labels:
+    app: expample
+  annotations:
+    nginx.ingress.kubernetes.io/enable-cors: "true"
+    nginx.ingress.kubernetes.io/cors-allow-methods: "PUT, GET, POST, OPTIONS"
+    nginx.ingress.kubernetes.io/cors-allow-origin: "http://www.revdoctors.org"
+    nginx.ingress.kubernetes.io/cors-allow-credentials: "true"
 apiVersion: v1
+# This is the service which gave a external ip to the kubernetes cluster. this is tied to the domain above.
+# the port, and targetport are specified here as well. We were deploying tomcat, so port 8080 was specified.
 kind: Service
 metadata:
-  name: revdoctors
+  name: expample
   labels:
-    app: revdoctors
+    app: expample
 spec:
   type: LoadBalancer
   ports:
@@ -39,4 +56,4 @@ spec:
       protocol: TCP
       name: http
   selector:
-      app: revdoctors
+      app: expample
