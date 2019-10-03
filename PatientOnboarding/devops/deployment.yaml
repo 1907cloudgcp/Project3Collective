@@ -1,0 +1,63 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    deployment.kubernetes.io/revision: "4"
+  creationTimestamp: 2019-09-11T18:36:11Z
+  generation: 8
+  labels:
+    app: gfy-deployment
+  name: gfy-deployment
+  namespace: default
+  resourceVersion: "481435"
+  selfLink: /apis/apps/v1/namespaces/default/deployments/gfy-deployment
+  uid: 071a3ff0-d4c3-11e9-b5d4-42010a800186
+spec:
+  progressDeadlineSeconds: 600
+  replicas: 1
+  revisionHistoryLimit: 10
+  selector:
+    matchLabels:
+      app: gfy-deployment
+  strategy:
+    rollingUpdate:
+      maxSurge: 25%
+      maxUnavailable: 25%
+    type: RollingUpdate
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: gfy-deployment
+    spec:
+      containers:
+      - image: gcr.io/project-2-251819/go-fund-you:productionlatest
+        imagePullPolicy: Always
+        name: go-fund-you
+        resources: {}
+        terminationMessagePath: /dev/termination-log
+        terminationMessagePolicy: File
+      dnsPolicy: ClusterFirst
+      restartPolicy: Always
+      schedulerName: default-scheduler
+      securityContext: {}
+      terminationGracePeriodSeconds: 30
+status:
+  availableReplicas: 1
+  conditions:
+  - lastTransitionTime: 2019-09-11T18:36:11Z
+    lastUpdateTime: 2019-09-12T14:31:52Z
+    message: ReplicaSet "gfy-deployment-6b55647d5c" has successfully progressed.
+    reason: NewReplicaSetAvailable
+    status: "True"
+    type: Progressing
+  - lastTransitionTime: 2019-09-12T16:56:13Z
+    lastUpdateTime: 2019-09-12T16:56:13Z
+    message: Deployment has minimum availability.
+    reason: MinimumReplicasAvailable
+    status: "True"
+    type: Available
+  observedGeneration: 8
+  readyReplicas: 1
+  replicas: 1
+  updatedReplicas: 1

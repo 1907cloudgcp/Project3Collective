@@ -1,0 +1,74 @@
+pipeline {
+    agent any
+
+    environment {
+        DBPASS = credentials('database-password')
+    }
+
+    stages {
+        stage('Build') {
+            parallel {
+                stage('Maven Build') {
+                    steps {
+                        sh 'mvn -f ./PatientOnboarding/pom.xml install'
+                    }
+                }
+                
+                stage('Angular Build') {
+                    steps {
+                        sh 'npm install --prefix ./ProjectAngular ./ProjectAngular'
+                        sh 'pushd ./ProjectAngular && ng build && popd'
+                    }
+                }
+            }
+        }
+
+        stage('Docker Build') {
+            when {
+				branch 'master'
+			}
+
+            steps {
+                sh 'mv ./PatientOnboarding/target/PatientOnboarding-0.0.1-SNAPSHOT.war ./PatientOnboarding/target/PatientOnboarding.war'
+                sh 'gcloud auth configure-docker'
+                sh 'docker build -f ./PatientOnboarding/Dockerfile -t gcr.io/$PROJECT_ID/$IMAGE_TAG .'
+                sh 'docker push gcr.io/$PROJECT_ID/$IMAGE_TAG'
+            }
+        }
+
+        stage('Deployment') {
+            when {
+                branch 'master'
+            }
+
+            parallel {
+                stage('Deploy to Kubernetes') {
+                    steps {
+                        withCredentials([file(credentialsId: 'default-compute-service-account', variable: 'DCSA_KEY')]) {
+                            sh('gcloud auth activate-service-account --key-file=${DCSA_KEY}')
+                            sh('gcloud container clusters get-credentials $CLUSTER --zone $ZONE')
+                            sh('kubectl set image deployments/$DEPLOYMENT patient-onboarding=gcr.io/$PROJECT_ID/$IMAGE_TAG')
+                            sh('kubectl delete pods -l app=$DEPLOYMENT')
+                        }
+                    }
+                }
+
+                stage('Deploy to Bucket') {
+                    steps {
+                        withCredentials([file(credentialsId: 'default-compute-service-account', variable: 'DCSA_KEY')]) {
+                            sh('gcloud auth activate-service-account --key-file=${DCSA_KEY}')
+                            sh('gsutil -m cp -r ./ProjectAngular/dist/ProjectAngular/.* $BUCKET_URL')
+                        }
+                    }
+                }
+            }
+        }
+
+        stage('Clean Workspace') {
+            steps {
+                sh 'docker image prune -f'
+                cleanWs(deleteDirs:true)
+            }
+        }
+    }
+}
