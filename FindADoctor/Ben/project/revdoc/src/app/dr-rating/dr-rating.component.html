@@ -1,0 +1,101 @@
+<div class='all'>
+
+<h3>Selected values: </h3>
+<h6>{{theCond}}</h6>
+<h6>{{theSpec}}</h6>
+<h6>{{theIns}}</h6>
+<br><br>
+
+<!-- <div class='panel-body'>
+    <div class='row'>
+        <div class='col-md-2'>Filter by: </div>
+        <div class='col-md-4'>
+            <input type='text' [(ngModel)]='inputField'/>
+        </div>
+    </div>
+</div> -->
+    
+
+
+<!--Sort by rating-->
+<br>
+<div>
+    <button type="button" class="btn btn-dark" (click)='onSortExp()'>Sort by experience</button>
+</div>
+<br>
+
+
+    <!--FILTER BY SPECIALTY-->
+      <div> 
+          <h6>Filter by specialties: </h6>
+            <select [(ngModel)]="selected" (ngModelChange)="onSelect(selected)" (change)="modo($event.target.value)">
+                <option value="selectAll">Select all</option>
+                <option *ngFor="let option of specialties"
+                        [value]="option">
+                  {{ option }}
+                </option>
+           </select>
+         </div>
+
+        <br><br>
+         <!--FILTER BY CONDITION-->
+         <div>
+                <h6>Filter by condition: </h6>
+                <select [(ngModel)]="selectedCondition" (ngModelChange)="onSelectCondition(selectedCondition)" (change)="modo($event.target.value)">
+                    <option value="selectAll">Select all</option>
+                    <option *ngFor="let option of conditions"
+                            [value]="option">
+                      {{ option }}
+                    </option>
+               </select>
+             </div>
+
+
+
+<div class='table-responsive'>
+<table class='table'>
+    <thead>
+        <tr>
+            <th>NPI</th>
+            <th>Name</th>
+            <th>Phone number</th>
+            <th>E-mail</th>
+            <th>Address</th>
+            <th>City</th>
+            <th>Years of experience</th>
+            <th>Specialty</th>
+            <th>Insurance</th>
+            <th>About Me</th>
+        </tr>
+    </thead>
+    <tbody>
+        <!-- this is a "structural directive". We call it a structural
+        directive because it has the potential to alter the ENTIRE structure
+        of the DOM.
+    
+        the commonly used structural directives are
+        *ngFor, *ngIf, *ngSwitch, *ngDefault    -->
+        <tr *ngFor='let temp of filteredDoctors'>
+            <td>{{temp.doc_npi}}</td>
+            <td><a [routerLink]="['/profile', temp.doc_name]">{{temp.doc_name}}</a></td>
+            <td>{{temp.doc_phone_number}}</td>
+            <td>{{temp.doc_email}}</td>
+            <td>{{temp.address}}</td>
+            <td>{{temp.city}}</td>
+            <td>{{temp.doc_exp}}</td>
+            <td>{{temp.Specialty}}</td>
+            <td>{{temp.Insurance}}</td>
+            <td>{{temp.about_me}}</td>
+
+        </tr>
+    </tbody>
+
+
+</table>
+
+<router-outlet></router-outlet>
+
+
+
+
+</div>
