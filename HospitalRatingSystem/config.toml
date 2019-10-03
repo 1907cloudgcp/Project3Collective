@@ -1,0 +1,10 @@
+[[runners]]
+  name = "My Docker Runner"
+  url = "http://gitlab.com"
+  token = ""
+  executor = "docker"
+  [runners.custom_build_dir]
+  [runners.docker]
+    privileged = true
+    volumes = ["/certs/client", "/cache"]
+    shm_size = 0
