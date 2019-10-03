@@ -8,6 +8,9 @@ The **SupportForce** folder here contains the files needed to build the **front 
 The **SupportForceBE** folder here contains the files needed to build the **back end** application of the project using CircleCI.
 
 ## Contents of SupportForce Folder
+
+The stagingfe.dockerfile is the Dockerfile used for building the front end container.
+
 The .circleci folder holds the necessary files for a CircleCI build. 
 
 It contains the bucket-cors.json file, which is used to configure the CORS policy on our Google Cloud Storage bucket. 
@@ -18,13 +21,12 @@ The .environment files contain environment variables of the backend URL, so this
 
 The .json file contains pertinent access information. The variables' names are shown, but values have been redacted in this repository.
 
-The stagingfe.dockerfile is the Dockerfile used for building the front end container.
-
 ## Contents of SupportForceBE Folder
+
+The stagingbe.dockerfile is the Dockerfile used for building the back end container.
+
 The .circleci folder holds the necessary files for a CircleCI build. 
 
 The config.yml file is the configuration file. 
 
 The .json file contains pertinent access information. The variables' names are shown, but values have been redacted in this repository.
-
-The stagingbe.dockerfile is the Dockerfile used for building the back end container.
