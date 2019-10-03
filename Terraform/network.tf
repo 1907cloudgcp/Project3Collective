@@ -7,6 +7,7 @@ resource "google_compute_network" "uat_network" {
     ]
 }
 
+// For the Jenkins server
 resource "google_compute_subnetwork" "pipeline_subnetwork" {
     name = "devops-subnet"
     ip_cidr_range = "192.168.1.0/24"
@@ -14,6 +15,7 @@ resource "google_compute_subnetwork" "pipeline_subnetwork" {
     network = "${google_compute_network.uat_network.self_link}"
 }
 
+// For the Kubernetes UAT cluster
 resource "google_compute_subnetwork" "uat_subnetwork" {
     name = "uat-subnet"
     ip_cidr_range = "192.168.2.0/24"

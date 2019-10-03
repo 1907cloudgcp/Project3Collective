@@ -1,3 +1,4 @@
+// Preferable comment this out and manually enable in console
 resource "google_project_services" "project_apis" {
     project = "${var.project_id}"
     services = [

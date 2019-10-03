@@ -27,7 +27,7 @@ resource "google_project_iam_custom_role" "jenkins_role" {
     ]
 }
 
-resource "google_project_iam_member" "test_member" {
+resource "google_project_iam_member" "jenkins_iam" {
     role = "projects/${var.project_id}/roles/${google_project_iam_custom_role.jenkins_role.role_id}"
     member = "serviceAccount:${google_service_account.jenkins_account.email}"
 }

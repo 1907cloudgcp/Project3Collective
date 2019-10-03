@@ -28,6 +28,8 @@ resource "google_compute_instance" "devops_bastion" {
     ]
 }
 
+// Remove the metadata startup script if using a Jenkins image
+// Default image is centos-7
 resource "google_compute_instance" "jenkins_vm" {
     name = "jenkins-server"
     machine_type = "n1-standard-1"

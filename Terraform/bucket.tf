@@ -17,6 +17,7 @@ resource "google_storage_bucket" "static_page" {
     ]
 }
 
+// Enable CORS
 resource "google_storage_bucket_acl" "static_page_acl" {
     bucket = "${google_storage_bucket.static_page.name}"
 

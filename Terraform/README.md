@@ -10,6 +10,7 @@
   - One to act as a data sink
   - One to hold the static front end page
 - A Postgres database
+  - A premade database user is commented out
 - A service account for the Jenkins server
   - Also a custom role for the service account
 - Enable Stackdriver logging to log data into the sink bucket
@@ -19,6 +20,14 @@
 - Other resources
   - A startup script to pass into the Jenkins VM instance which downloads all required software for Jenkins to build and deliver
   - A run.sh script to initialize the Terraform workspace and apply changes
+
+# Outputs
+- Database IP
+- Database name
+- The Bastion's external IP
+- The Jenkins server's external IP
+- The path to the key
+- Kubernetes cluster IP address
 
 # After Creating Project
 - First create a service account for Terraform and give it role of project owner or more restrictive roles

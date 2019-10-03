@@ -7,6 +7,7 @@ resource "google_kms_key_ring" "global_keyring" {
     ]
 }
 
+// Symmetric key
 resource "google_kms_crypto_key" "encryption_key" {
     name = "${var.key_name}"
     key_ring = "${google_kms_key_ring.global_keyring.self_link}"
