@@ -1,0 +1,1 @@
+There are several environment variables that are necessary for this pipeline. The key for the service account that allows the pipeline instances access to the Google Project and an API access token from your GitLab account to use the API to grab the job IDs of each step in the pipeline

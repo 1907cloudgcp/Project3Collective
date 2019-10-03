@@ -1,9 +1,12 @@
+# States the stages for the CI pipeline, each stage can have multiple steps that run in parallel and can pass artifacts to other stages
+# Each step will also be recording its job ID in a text file for logging and uploading those logs to a cloud bucket
 stages:
   - build
   - package
   - deploy
   - logs
 
+# Builds the frontend angular application
 build-frontend:
   stage: build
   image: node:latest
@@ -17,6 +20,7 @@ build-frontend:
       - Auto-Insurance/dist
       - build-frontend-id.txt
 
+# Builds the backend java application
 build-backend:
   stage: build
   image: maven:latest
@@ -29,6 +33,7 @@ build-backend:
       - AutoInsurance/target
       - build-backend-id.txt
 
+# Builds a Docker image with the java application files and pushes it into the GCR
 package-backend:
   stage: package
   image: gitlab/dind
@@ -45,6 +50,7 @@ package-backend:
     paths:
       - package-backend-id.txt
 
+# Deploys the frontend to an app engine instance
 deploy-frontend:
   stage: deploy
   image: google/cloud-sdk
@@ -61,6 +67,7 @@ deploy-frontend:
     paths:
       - deploy-frontend-id.txt
 
+# Deploys the backend to a Kubernetes cluster
 deploy-backend:
   stage: deploy
   image: google/cloud-sdk
@@ -76,6 +83,7 @@ deploy-backend:
     paths:
       - deploy-backend-id.txt
 
+# Uploads all the previous job logs to a cloud storage bucket with a time stamp in the file name
 upload-logs:
   stage: logs
   image: google/cloud-sdk
