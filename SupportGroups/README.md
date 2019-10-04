@@ -47,7 +47,7 @@ The stagingbe.dockerfile is the Dockerfile used for building the back end contai
 The SQL database password in this file has been redacted for this repository.
 
 The .circleci folder holds the necessary files for a CircleCI build. The
-config.yml file is the configuration file. The .json file contains is the
+config.yml file is the configuration file. The .json file contains the
 circleci service account key (this should also have been kept as a secret; it
 was originally stored as a CircleCi encrypted variable, but went back to being a
 file and did not change).
