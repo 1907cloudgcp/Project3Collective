@@ -36,18 +36,21 @@ Cloud Storage bucket.  The config.yml file is the configuration file.  The
 .environment files contain environment variables of the backend URL, so this
 is where you would put the URL of the instance running the back end application.
 In our case, this URL is the IP address of the Kubernetes load balancer managing
-the cluster hosting our back end application.
-
-The .json file contains the circleci service account key.
+the cluster hosting our back end application.  The .json file contains the circleci
+service account key (this should also have been kept as a secret; it was
+originally stored as a CircleCi encrypted variable, but went back to being a file
+and did not change).
 
 ### Contents of SupportForceBE Folder
 
 The stagingbe.dockerfile is the Dockerfile used for building the back end container.
 The SQL database password in this file has been redacted for this repository.
 
-The .circleci folder holds the necessary files for a CircleCI build. The config.yml
-file is the configuration file. The .json file contains is the circleci service
-account key.
+The .circleci folder holds the necessary files for a CircleCI build. The
+config.yml file is the configuration file. The .json file contains is the
+circleci service account key (this should also have been kept as a secret; it
+was originally stored as a CircleCi encrypted variable, but went back to being a
+file and did not change).
 
 The .kubernetes folder holds the Kubernetes deployment, service, and namespace
 configurations.
