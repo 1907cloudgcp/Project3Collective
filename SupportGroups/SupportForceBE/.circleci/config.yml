@@ -10,9 +10,9 @@ jobs:
       ## authorize with gcp service account key
       - run: cat .circleci/support-force-circleci.json | docker login -u _json_key --password-stdin https://gcr.io
       ## build the application image
-      - run: docker build -f SupportForceBE/stagingbe.dockerfile -t gcr.io/support-force/supportforcebe:latest .
+      - run: docker build -f SupportForceBE/uat.stagingbe.dockerfile -t gcr.io/support-force/uat-supportforcebe:latest .
       ## push the image to container registry
-      - run: docker push gcr.io/support-force/supportforcebe:latest
+      - run: docker push gcr.io/support-force/uat-supportforcebe:latest
   deploy: ## deploy frontend to gcp kubernetes engine
     description: deploy backend image to Google Kubernetes cluster
     machine: true
@@ -26,7 +26,7 @@ jobs:
       - run: gcloud --quiet config set project support-force
       - run: gcloud --quiet config set compute/zone us-east4-a
       ## update a deployment docker image
-      - run: gcloud container clusters get-credentials supportforce-dev-cluster
+      - run: gcloud container clusters get-credentials supportforce-uat-cluster
       ## add namespaces (if not already added)
       - run: kubectl apply -f SupportForceBE/.kubernetes_yaml/tomcat-backend-namespace.yaml
       ## delete current deployment if one is running

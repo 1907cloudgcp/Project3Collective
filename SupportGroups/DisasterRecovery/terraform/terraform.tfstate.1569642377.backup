@@ -1,0 +1,119 @@
+{
+    "version": 3,
+    "terraform_version": "0.11.11",
+    "serial": 13,
+    "lineage": "4d30e637-3fe8-2939-040b-f25831f5fe68",
+    "modules": [
+        {
+            "path": [
+                "root"
+            ],
+            "outputs": {},
+            "resources": {
+                "google_compute_network.support_force_network": {
+                    "type": "google_compute_network",
+                    "depends_on": [],
+                    "primary": {
+                        "id": "supportforce-vpc",
+                        "attributes": {
+                            "auto_create_subnetworks": "true",
+                            "delete_default_routes_on_create": "false",
+                            "description": "",
+                            "gateway_ipv4": "",
+                            "id": "supportforce-vpc",
+                            "ipv4_range": "",
+                            "name": "supportforce-vpc",
+                            "project": "support-force",
+                            "routing_mode": "REGIONAL",
+                            "self_link": "https://www.googleapis.com/compute/v1/projects/support-force/global/networks/supportforce-vpc"
+                        },
+                        "meta": {
+                            "e2bfb730-ecaa-11e6-8f88-34363bc7c4c0": {
+                                "create": 240000000000,
+                                "delete": 240000000000,
+                                "update": 240000000000
+                            }
+                        },
+                        "tainted": false
+                    },
+                    "deposed": [],
+                    "provider": "provider.google"
+                },
+                "google_sql_database_instance.uat_db_01": {
+                    "type": "google_sql_database_instance",
+                    "depends_on": [],
+                    "primary": {
+                        "id": "uat-db-01",
+                        "attributes": {
+                            "connection_name": "support-force:us-east4:uat-db-01",
+                            "database_version": "POSTGRES_9_6",
+                            "first_ip_address": "10.0.160.3",
+                            "id": "uat-db-01",
+                            "ip_address.#": "1",
+                            "ip_address.0.ip_address": "10.0.160.3",
+                            "ip_address.0.time_to_retire": "",
+                            "ip_address.0.type": "PRIVATE",
+                            "master_instance_name": "",
+                            "name": "uat-db-01",
+                            "private_ip_address": "10.0.160.3",
+                            "project": "support-force",
+                            "public_ip_address": "",
+                            "region": "us-east4",
+                            "replica_configuration.#": "0",
+                            "self_link": "https://www.googleapis.com/sql/v1beta4/projects/support-force/instances/uat-db-01",
+                            "server_ca_cert.#": "1",
+                            "server_ca_cert.0.cert": "-----BEGIN CERTIFICATE-----\nMIIDfzCCAmegAwIBAgIBADANBgkqhkiG9w0BAQsFADB3MS0wKwYDVQQuEyQxODY1\nNTY0Yy05ODY1LTRiOTYtOTI4ZS05MWFjMDVjM2NhNGIxIzAhBgNVBAMTGkdvb2ds\nZSBDbG91ZCBTUUwgU2VydmVyIENBMRQwEgYDVQQKEwtHb29nbGUsIEluYzELMAkG\nA1UEBhMCVVMwHhcNMTkwOTI4MDI1NTQ0WhcNMjkwOTI1MDI1NjQ0WjB3MS0wKwYD\nVQQuEyQxODY1NTY0Yy05ODY1LTRiOTYtOTI4ZS05MWFjMDVjM2NhNGIxIzAhBgNV\nBAMTGkdvb2dsZSBDbG91ZCBTUUwgU2VydmVyIENBMRQwEgYDVQQKEwtHb29nbGUs\nIEluYzELMAkGA1UEBhMCVVMwggEiMA0GCSqGSIb3DQEBAQUAA4IBDwAwggEKAoIB\nAQCjGX+1LeTuonY4ozg3m6HpFngR1mokVJL/N9/HUTfjEr0/zA/QxaR6jQoDbCuJ\ngZJOt5EuVjHnetrGZX/F/T8lvYA9w1WHO3N0obr7lb3Xc+wRURF6bW8PFm+LBNcE\n7LC0yxqev3mUbQCMKd+CbwDClxI7Ndr8dyvWZoBPl5Mu4wx/XXGf5KqwIKb6VjBW\nBYB4CEbiKALXwm742ZXZ3P9jkJqsgbYS7kz+R8Ae+EQRKVneV0aJztvx9uFbIPqb\nTOt40fs5mifxVouPMwsn0CkMSyZcxR/RvGHKE+pI28FSE4SsoDuh273GGFLWJrTY\nolA8izGHMyRBRxFq6ny/XI6VAgMBAAGjFjAUMBIGA1UdEwEB/wQIMAYBAf8CAQAw\nDQYJKoZIhvcNAQELBQADggEBAA5PSIZ4iE9m6DnSqNdylbYD8iIUQMp5blKZFUrM\nUm6tAL3zGt+/Li2fOFpWttPt2rABaTeQn3G4n4cvJlvhAKcH524fCcOgEvjS5IqT\nOaX00TTI0GVF4cXFmB/wsdqCz0nm0wr9LdG+kY7TGLDnhqikHLZCX89ITmK5jtFp\nj8qIUdeqTHgVii/qxKtZaoyu06ns9VqW8BVrbygd7Xz4743fIJNORFP9AhJJDESj\naVLu9onBjmGmvG6hRI3NP2G/jDAijg9v/ksRl3tsIF6Q5ZrQqHFc7/jiO14P+ogw\nsaZjqZeu0uw4RTogPQqotJ4krwMEw3ReoVxvwCbXQ9d4ufA=\n-----END CERTIFICATE-----",
+                            "server_ca_cert.0.common_name": "C=US,O=Google\\, Inc,CN=Google Cloud SQL Server CA,dnQualifier=1865564c-9865-4b96-928e-91ac05c3ca4b",
+                            "server_ca_cert.0.create_time": "2019-09-28T02:55:44.412Z",
+                            "server_ca_cert.0.expiration_time": "2029-09-25T02:56:44.412Z",
+                            "server_ca_cert.0.sha1_fingerprint": "964e942d523f425a973d3b596e1f3e0d9b6243f9",
+                            "service_account_email_address": "p640601756114-8va4gh@gcp-sa-cloud-sql.iam.gserviceaccount.com",
+                            "settings.#": "1",
+                            "settings.0.activation_policy": "ALWAYS",
+                            "settings.0.authorized_gae_applications.#": "0",
+                            "settings.0.availability_type": "ZONAL",
+                            "settings.0.backup_configuration.#": "1",
+                            "settings.0.backup_configuration.0.binary_log_enabled": "false",
+                            "settings.0.backup_configuration.0.enabled": "true",
+                            "settings.0.backup_configuration.0.start_time": "04:00",
+                            "settings.0.crash_safe_replication": "false",
+                            "settings.0.database_flags.#": "0",
+                            "settings.0.disk_autoresize": "true",
+                            "settings.0.disk_size": "10",
+                            "settings.0.disk_type": "PD_SSD",
+                            "settings.0.ip_configuration.#": "1",
+                            "settings.0.ip_configuration.0.authorized_networks.#": "0",
+                            "settings.0.ip_configuration.0.ipv4_enabled": "false",
+                            "settings.0.ip_configuration.0.private_network": "projects/support-force/global/networks/supportforce-vpc",
+                            "settings.0.ip_configuration.0.require_ssl": "false",
+                            "settings.0.location_preference.#": "1",
+                            "settings.0.location_preference.0.follow_gae_application": "",
+                            "settings.0.location_preference.0.zone": "us-east4-a",
+                            "settings.0.maintenance_window.#": "1",
+                            "settings.0.maintenance_window.0.day": "7",
+                            "settings.0.maintenance_window.0.hour": "9",
+                            "settings.0.maintenance_window.0.update_track": "",
+                            "settings.0.pricing_plan": "PER_USE",
+                            "settings.0.replication_type": "SYNCHRONOUS",
+                            "settings.0.tier": "db-custom-1-3840",
+                            "settings.0.user_labels.%": "1",
+                            "settings.0.user_labels.supportforce": "uat-db-01",
+                            "settings.0.version": "1"
+                        },
+                        "meta": {
+                            "e2bfb730-ecaa-11e6-8f88-34363bc7c4c0": {
+                                "create": 1200000000000,
+                                "delete": 1200000000000,
+                                "update": 1200000000000
+                            }
+                        },
+                        "tainted": false
+                    },
+                    "deposed": [],
+                    "provider": "provider.google"
+                }
+            },
+            "depends_on": []
+        }
+    ]
+}

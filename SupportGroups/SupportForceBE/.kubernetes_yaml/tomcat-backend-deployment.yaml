@@ -1,0 +1,56 @@
+---
+apiVersion: "apps/v1"
+kind: "Deployment"
+metadata:
+  name: "tomcat-backend"
+  namespace: "backend"
+  labels:
+    app: "tomcat-backend"
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: "tomcat-backend"
+  template:
+    metadata:
+      labels:
+        app: "tomcat-backend"
+    spec:
+      containers:
+      - name: "uat-supportforcebe-sha256"
+        image: "gcr.io/support-force/uat-supportforcebe:latest"
+        ports:
+        - containerPort: 80
+        - containerPort: 8080
+        env:
+          - name: "DB_PASSWORD"
+            valueFrom:
+              secretKeyRef:
+                name: "uat-db-secret"
+                key: "foopa"
+          - name: "DB_USERNAME"
+            valueFrom:
+              secretKeyRef:
+                name: "uat-db-secret"
+                key: "fooser"
+---
+## autoscaler is not needed in staging, but it works for production
+apiVersion: "autoscaling/v2beta1"
+kind: "HorizontalPodAutoscaler"
+metadata:
+  name: "tomcat-backend-hpa"
+  namespace: "backend"
+  labels:
+    app: "tomcat-backend-hpa"
+spec:
+  scaleTargetRef:
+    kind: "Deployment"
+    name: "tomcat-backend"
+    apiVersion: "apps/v1"
+  minReplicas: 1
+  maxReplicas: 5
+  metrics:
+  - type: "Resource"
+    resource:
+      name: "cpu"
+      targetAverageUtilization: 80

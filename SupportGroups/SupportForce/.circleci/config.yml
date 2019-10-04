@@ -13,11 +13,11 @@ jobs:
       ## authorize with gcp service account key
       - run: cat .circleci/support-force-circleci.json | docker login -u _json_key --password-stdin https://gcr.io
       ## build the application image
-      - run: docker build -f SupportForce/stagingfe.dockerfile -t gcr.io/support-force/supportforce:latest .
+      - run: docker build -f SupportForce/stagingfe.dockerfile -t gcr.io/support-force/uat-supportforce:latest .
       ## push the image to container registry
-      - run: docker push gcr.io/support-force/supportforce:latest
+      - run: docker push gcr.io/support-force/uat-supportforce:latest
       ## run container
-      - run: docker run gcr.io/support-force/supportforce:latest
+      - run: docker run gcr.io/support-force/uat-supportforce:latest
 workflows:
   buildfrontend:
     jobs:

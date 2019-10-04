@@ -1,0 +1,46 @@
+{
+    "version": 3,
+    "terraform_version": "0.11.11",
+    "serial": 4,
+    "lineage": "4d30e637-3fe8-2939-040b-f25831f5fe68",
+    "modules": [
+        {
+            "path": [
+                "root"
+            ],
+            "outputs": {},
+            "resources": {
+                "google_compute_network.support_force_network": {
+                    "type": "google_compute_network",
+                    "depends_on": [],
+                    "primary": {
+                        "id": "supportforce-vpc",
+                        "attributes": {
+                            "auto_create_subnetworks": "true",
+                            "delete_default_routes_on_create": "false",
+                            "description": "",
+                            "gateway_ipv4": "",
+                            "id": "supportforce-vpc",
+                            "ipv4_range": "",
+                            "name": "supportforce-vpc",
+                            "project": "support-force",
+                            "routing_mode": "REGIONAL",
+                            "self_link": "https://www.googleapis.com/compute/v1/projects/support-force/global/networks/supportforce-vpc"
+                        },
+                        "meta": {
+                            "e2bfb730-ecaa-11e6-8f88-34363bc7c4c0": {
+                                "create": 240000000000,
+                                "delete": 240000000000,
+                                "update": 240000000000
+                            }
+                        },
+                        "tainted": false
+                    },
+                    "deposed": [],
+                    "provider": "provider.google"
+                }
+            },
+            "depends_on": []
+        }
+    ]
+}

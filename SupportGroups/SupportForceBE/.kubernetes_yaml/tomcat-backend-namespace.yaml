@@ -1,0 +1,14 @@
+---
+apiVersion: "v1"
+kind: "Namespace"
+metadata:
+  name: "backend"
+  labels:
+    app: "backend"
+---
+apiVersion: "v1"
+kind: "Namespace"
+metadata:
+  name: "backend-service"
+  labels:
+    app: "backend-service"

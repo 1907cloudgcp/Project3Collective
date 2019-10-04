@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "support-force",
+  "private_key_id": "f41b5019e1d776c4f5ffddb5a2c522f977d28f66",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQDYWYbPSm8H4Rbb\nmobo8uxYgstKXT2N7N1jZ/VAgXb9OeEin+8V/Fzn/V0b+Aq7E2cu5zxMLKwuw1il\nDT5WRwOiyUm0e3UVLSdwHsY2EXJQip3XJKKhj8L6ZNKtp6V+kG+zggovcVDVFR1E\nqEnY/4dBv1fwxgZSpx7anN/ceWiYna2nUI6ehkdXbnj+1u6PKLz7Ij6rtZDACZME\n882uba5p956n1MxbTVmsk5twIvHDfP5GI+v9SO9UPm7uuVn8pYRXAQMJud/QKsAj\nKjsCNXCmYgCwbr+0siGzsoce0ATOZSAK03S1Hz7CJRqXjWSaIXF67J1RmMF8seQY\nam6bGJqdAgMBAAECggEAFAutgDjhEz2RkNzfOafCaswJmnULrkH/XEXGVUj5lape\neAcSD7svf4Y78Yq4sc8xLQkbTuKHvJh4duiEeVmAln1ogRq8RS9HG24ahul0ak6B\no+y+zdHkaq9bTuA85v5qfxsiJvWsm+WmLdWa7Ap3BYo9U2+Bp/hYlUBaRJMSNCui\nSaUtJNo3dVrK+/dYdz+V5bg0JDNLYR+xF9CHbDAo6dhAkDx8cBAGOHu/GmJ9g1XW\nwAXLhoB5hwfLQnDEzWsNbYpg56ZfoeKT52jl+U6jWxRuttnk5aBSFEczpWVjNQR7\n+XLecbPCW7sJQXswbckSYzODi2wmXDFNzBzeZhYseQKBgQDyIwLMrNfBIPVFumVh\nDLtX17D3YyAqKKbuI2orOpaiH69d3kr04z0AwErfFlpxwQo1w0Vk9h/1Qu0KKTks\nKmr0rlk5uLIpPn+Ut7xLX46jKofPf0aEELHhWk6v5Nbb4/sNGPcIhjNhu+OI2CmW\nr282RqGve5sejIMrB72NoZTtxQKBgQDkvI5P2Z1lBSW4wL77C47Pe3H1d62LQIY0\n4qZTBr1WV55bLeVXJ/E42aa3DeHtHSbcoHvqX6mPgADeRj4YVVQKz9b/CVO2xNc+\nxWpmTeWPXSX9/8C2LMbVKpI1Ujv/oq7rhLUaccxLVXozMd1KEMluuLqTqRVOsKm+\nSSwCQCNe+QKBgQDmfb9feDTVSftQydNRY94+CzsQ8xIeL55f1+RrjBTx9TlpIH63\nyEw8l89ttwiXekuuy9gV+FiJjpC3+G/NA//WNNUIpjEqI60ssw4Rrb/IwGaRdbV5\nZ678Novq0epZXRaQ7C/TtHPa2BELJcHJB+zUfL3SntYVaWo/HtoopSRwhQKBgFMB\n1kdF+qdZWdoVIHlsNVQ4QR/KYZFCRjHU+nTw4i7+NvpxymN5nEF8QtL1V8K7rImu\nN6nTM25fDnGbXhdoh8owqJ3+3YFbJ52g+L7Nj/wZ2pq1gFLcJv/ephZxlFJt0Dqp\n+yrwlynTiDgh5WNmeiMTKKpDVvcqhz8FwNHEQtHJAoGBALtOZx0MG/SgIoU0kKZC\nHSDHNQ/tiY1tJ5HIY2hcuMBPK2SaODMZ75k+xz3uhXSbOVN6hbIYPPKmWI4vLnhf\nBMKd5ETXZ6mWoQzMNapUI4qKXfP6MtXheb4SSLSSej/UqKIpOmxMM/Ri00ARDMbN\n2Y2cXVLB6XxGV8nJCHlkkIFl\n-----END PRIVATE KEY-----\n",
+  "client_email": "terraforming-cloud@support-force.iam.gserviceaccount.com",
+  "client_id": "103636802592456072063",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/terraforming-cloud%40support-force.iam.gserviceaccount.com"
+}
